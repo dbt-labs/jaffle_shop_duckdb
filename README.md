@@ -33,6 +33,7 @@ To get up and running with this project:
 
 1. Install dbt and DuckDB in a virtual environment.
     ```shell
+    python -m pip install --upgrade pip
     python -m venv venv
     . venv/bin/activate
     python -m pip install dbt-duckdb
@@ -57,13 +58,14 @@ To get up and running with this project:
     dbt build
     ```
 
-1. Generate documentation for the project:
+1. Quickly browse the data -- just for demo purposes -- see below for better ways to query the data:
     ```shell
-    dbt docs generate
+    ./D select 42 as answer from customers limit 1;
     ```
 
-1. View the documentation for the project:
+1. Generate and view the documentation for the project:
     ```shell
+    dbt docs generate
     dbt docs serve
     ```
 
@@ -90,11 +92,6 @@ To get up and running with this project:
 Some options:
 - [DuckDB CLI](https://duckdb.org/docs/installation/?environment=cli)
 - [How to set up DBeaver SQL IDE for DuckDB](https://duckdb.org/docs/guides/sql_editors/dbeaver)
-
-Easiest (and most fragile) -- just for demo purposes:
-```shell
-./D select 42 as answer from customers limit 1;
-```
 
 #### Troubleshooting
 
