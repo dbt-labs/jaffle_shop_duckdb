@@ -21,51 +21,86 @@ The raw data consists of customers, orders, and payments, with the following ent
 
 ![Jaffle Shop ERD](/etc/jaffle_shop_erd.png)
 
-
 ### Running this project
 To get up and running with this project:
-1. Install dbt using [these instructions](https://docs.getdbt.com/docs/installation).
 
-2. Clone this repository.
+1. Clone this repository.
 
-3. Change into the `jaffle_shop` directory from the command line:
-```bash
-$ cd jaffle_shop
+1. Change into the `jaffle_shop` directory from the command line:
+    ```shell
+    $ cd jaffle_shop
+    ```
+
+1. Install dbt and DuckDB in a virtual environment.
+    ```shell
+    $ python -m venv venv
+    $ . venv/bin/activate
+    $ python -m pip install dbt-duckdb
+    $ . venv/bin/activate
+    $ dbt --version
+    ```
+
+1. Use the database connection profile [local to this project](https://docs.getdbt.com/dbt-cli/configure-your-profile#advanced-customizing-a-profile-directory) (rather than the default profile located at `~/.dbt/profiles.yml`). This uses a local DuckDB database stored in `jaffle_shop.duckdb`.
+
+    ```shell
+    $ export DBT_PROFILES_DIR=.
+    ```
+    > **WARNING:** You'll want to run `unset DBT_PROFILES_DIR` after you're done with this demo or this will affect your other dbt projects 😅. You can dynamically load/unload environment variables using tools like [`direnv`](https://direnv.net/).
+
+1. Ensure your profile is setup correctly from the command line:
+    ```shell
+    $ dbt debug
+    ```
+
+1. Load the CSVs with the demo data set, run the models, and test the output of the models:
+    ```shell
+    $ dbt build
+    ```
+
+1. Generate documentation for the project:
+    ```shell
+    $ dbt docs generate
+    ```
+
+1. View the documentation for the project:
+    ```shell
+    $ dbt docs serve
+    ```
+
+### Running `build` steps independently
+
+1. Load the CSVs with the demo data set. This materializes the CSVs as tables in your target schema. Note that a typical dbt project **does not require this step** since dbt assumes your raw data is already in your warehouse.
+    ```shell
+    $ dbt seed
+    ```
+
+1. Run the models:
+    ```shell
+    $ dbt run
+    ```
+
+    > **NOTE:** If this steps fails, it might mean that you need to make small changes to the SQL in the models folder to adjust for the flavor of SQL of your target database. Definitely consider this if you are using a community-contributed adapter.
+
+1. Test the output of the models:
+    ```shell
+    $ dbt test
+    ```
+
+### Browsing the data
+Some options:
+- [How to set up DBeaver SQL IDE for DuckDB](https://duckdb.org/docs/guides/sql_editors/dbeaver)
+- [DuckDB CLI](https://duckdb.org/docs/installation/?environment=cli)
+
+#### Troubleshooting
+
+You may get an error like this, in which case you will need to disconnect from any sessions that are locking the database:
+```
+IO Error: Could not set lock on file "jaffle_shop.duckdb": Resource temporarily unavailable
 ```
 
-4. Set up a profile called `jaffle_shop` to connect to a data warehouse by following [these instructions](https://docs.getdbt.com/docs/configure-your-profile). If you have access to a data warehouse, you can use those credentials – we recommend setting your [target schema](https://docs.getdbt.com/docs/configure-your-profile#section-populating-your-profile) to be a new schema (dbt will create the schema for you, as long as you have the right privileges). If you don't have access to an existing data warehouse, you can also setup a local postgres database and connect to it in your profile.
+This is a known issue in DuckDB. If you are using DBeaver, this means shutting down DBeaver (merely disconnecting didn't work for me).
 
-5. Ensure your profile is setup correctly from the command line:
-```bash
-$ dbt debug
-```
-
-6. Load the CSVs with the demo data set. This materializes the CSVs as tables in your target schema. Note that a typical dbt project **does not require this step** since dbt assumes your raw data is already in your warehouse.
-```bash
-$ dbt seed
-```
-
-7. Run the models:
-```bash
-$ dbt run
-```
-
-> **NOTE:** If this steps fails, it might mean that you need to make small changes to the SQL in the models folder to adjust for the flavor of SQL of your target database. Definitely consider this if you are using a community-contributed adapter.
-
-8. Test the output of the models:
-```bash
-$ dbt test
-```
-
-9. Generate documentation for the project:
-```bash
-$ dbt docs generate
-```
-
-10. View the documentation for the project:
-```bash
-$ dbt docs serve
-```
+Very worst-case, deleting the database file will get you back in action (BUT you will lose all your data).
 
 ### What is a jaffle?
 A jaffle is a toasted sandwich with crimped, sealed edges. Invented in Bondi in 1949, the humble jaffle is an Australian classic. The sealed edges allow jaffle-eaters to enjoy liquid fillings inside the sandwich, which reach temperatures close to the core of the earth during cooking. Often consumed at home after a night out, the most classic filling is tinned spaghetti, while my personal favourite is leftover beef stew with melted cheese.
