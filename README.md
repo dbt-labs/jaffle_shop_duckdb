@@ -88,8 +88,13 @@ To get up and running with this project:
 
 ### Browsing the data
 Some options:
-- [How to set up DBeaver SQL IDE for DuckDB](https://duckdb.org/docs/guides/sql_editors/dbeaver)
 - [DuckDB CLI](https://duckdb.org/docs/installation/?environment=cli)
+- [How to set up DBeaver SQL IDE for DuckDB](https://duckdb.org/docs/guides/sql_editors/dbeaver)
+
+Easiest (and most fragile) -- just for demo purposes:
+```shell
+./D select 42 as answer from customers limit 1;
+```
 
 #### Troubleshooting
 
