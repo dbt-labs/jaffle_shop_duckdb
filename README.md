@@ -28,62 +28,62 @@ To get up and running with this project:
 
 1. Change into the `jaffle_shop` directory from the command line:
     ```shell
-    $ cd jaffle_shop
+    cd jaffle_shop
     ```
 
 1. Install dbt and DuckDB in a virtual environment.
     ```shell
-    $ python -m venv venv
-    $ . venv/bin/activate
-    $ python -m pip install dbt-duckdb
-    $ . venv/bin/activate
-    $ dbt --version
+    python -m venv venv
+    . venv/bin/activate
+    python -m pip install dbt-duckdb
+    . venv/bin/activate
+    dbt --version
     ```
 
 1. Use the database connection profile [local to this project](https://docs.getdbt.com/dbt-cli/configure-your-profile#advanced-customizing-a-profile-directory) (rather than the default profile located at `~/.dbt/profiles.yml`). This uses a local DuckDB database stored in `jaffle_shop.duckdb`.
 
     ```shell
-    $ export DBT_PROFILES_DIR=.
+    export DBT_PROFILES_DIR=.
     ```
     > **WARNING:** You'll want to run `unset DBT_PROFILES_DIR` after you're done with this demo or this will affect your other dbt projects 😅. You can dynamically load/unload environment variables using tools like [`direnv`](https://direnv.net/).
 
 1. Ensure your profile is setup correctly from the command line:
     ```shell
-    $ dbt debug
+    dbt debug
     ```
 
 1. Load the CSVs with the demo data set, run the models, and test the output of the models:
     ```shell
-    $ dbt build
+    dbt build
     ```
 
 1. Generate documentation for the project:
     ```shell
-    $ dbt docs generate
+    dbt docs generate
     ```
 
 1. View the documentation for the project:
     ```shell
-    $ dbt docs serve
+    dbt docs serve
     ```
 
 ### Running `build` steps independently
 
 1. Load the CSVs with the demo data set. This materializes the CSVs as tables in your target schema. Note that a typical dbt project **does not require this step** since dbt assumes your raw data is already in your warehouse.
     ```shell
-    $ dbt seed
+    dbt seed
     ```
 
 1. Run the models:
     ```shell
-    $ dbt run
+    dbt run
     ```
 
     > **NOTE:** If this steps fails, it might mean that you need to make small changes to the SQL in the models folder to adjust for the flavor of SQL of your target database. Definitely consider this if you are using a community-contributed adapter.
 
 1. Test the output of the models:
     ```shell
-    $ dbt test
+    dbt test
     ```
 
 ### Browsing the data
