@@ -22,34 +22,27 @@ The raw data consists of customers, orders, and payments, with the following ent
 ![Jaffle Shop ERD](/etc/jaffle_shop_erd.png)
 
 ### Running this project
+
 To get up and running with this project:
 
 1. Clone this repository.
 
-1. Change into the `jaffle_shop` directory from the command line:
+1. Change into the `jaffle_shop_duck` directory from the command line:
     ```shell
-    cd jaffle_shop
+    cd jaffle_shop_duck
     ```
 
 1. Install dbt and DuckDB in a virtual environment.
     ```shell
-    python -m pip install --upgrade pip
     python -m venv venv
     . venv/bin/activate
-    python -m pip install dbt-duckdb
+    python -m pip install -r requirements.txt
     . venv/bin/activate
-    dbt --version
     ```
-
-1. Use the database connection profile [local to this project](https://docs.getdbt.com/dbt-cli/configure-your-profile#advanced-customizing-a-profile-directory) (rather than the default profile located at `~/.dbt/profiles.yml`). This uses a local DuckDB database stored in `jaffle_shop.duckdb`.
-
-    ```shell
-    export DBT_PROFILES_DIR=.
-    ```
-    > **WARNING:** You'll want to run `unset DBT_PROFILES_DIR` after you're done with this demo or this will affect your other dbt projects 😅. You can dynamically load/unload environment variables using tools like [`direnv`](https://direnv.net/).
 
 1. Ensure your profile is setup correctly from the command line:
     ```shell
+    dbt --version
     dbt debug
     ```
 
