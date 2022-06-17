@@ -22,6 +22,7 @@ The raw data consists of customers, orders, and payments, with the following ent
 ![Jaffle Shop ERD](/etc/jaffle_shop_erd.png)
 
 ### Running this project
+Prerequisities: Python >= 3.5
 
 To get up and running with this project:
 
@@ -33,12 +34,74 @@ To get up and running with this project:
     ```
 
 1. Install dbt and DuckDB in a virtual environment.
+
+    Expand your shell below:
+
+    <details>
+    <summary>POSIX bash/zsh</summary>
+
     ```shell
-    python -m venv venv
-    . venv/bin/activate
-    python -m pip install -r requirements.txt
-    . venv/bin/activate
+    python3 -m venv venv
+    source venv/bin/activate
+    python3 -m pip install -r requirements.txt
+    source venv/bin/activate
     ```
+    </details>
+
+    <details>
+    <summary>POSIX fish</summary>
+
+    ```shell
+    python3 -m venv venv
+    source venv/bin/activate.fish
+    python3 -m pip install -r requirements.txt
+    source venv/bin/activate.fish
+    ```
+    </details>
+
+    <details>
+    <summary>POSIX csh/tcsh</summary>
+
+    ```shell
+    python3 -m venv venv
+    source venv/bin/activate.csh
+    python3 -m pip install -r requirements.txt
+    source venv/bin/activate.csh
+    ```
+    </details>
+
+    <details>
+    <summary>POSIX PowerShell Core</summary>
+
+    ```shell
+    python3 -m venv venv
+    source venv/bin/Activate.ps1
+    python3 -m pip install -r requirements.txt
+    source venv/bin/Activate.ps1
+    ```
+    </details>
+
+    <details>
+    <summary>Windows cmd.exe</summary>
+
+    ```shell
+    python3 -m venv venv
+    source venv\Scripts\activate.bat
+    python3 -m pip install -r requirements.txt
+    source venv\Scripts\activate.bat
+    ```
+    </details>
+
+    <details>
+    <summary>Windows PowerShell</summary>
+
+    ```shell
+    python3 -m venv venv
+    source venv\Scripts\Activate.ps1
+    python3 -m pip install -r requirements.txt
+    source venv\Scripts\Activate.ps1
+    ```
+    </details>
 
 1. Ensure your profile is setup correctly from the command line:
     ```shell
