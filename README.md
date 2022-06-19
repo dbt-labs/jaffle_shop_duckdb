@@ -58,13 +58,8 @@ To get up and running with this project:
     ```shell
     python3 -m venv venv
     source venv/bin/activate
-    ./venv/bin/python3 -m pip install --upgrade pip
     python3 -m pip install -r requirements.txt
     source venv/bin/activate
-    dbt build
-    ./D select 42 as answer from customers limit 1;
-    dbt docs generate
-    dbt docs serve
     ```
     </details>
 
