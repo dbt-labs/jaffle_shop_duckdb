@@ -1,3 +1,4 @@
-dbt-duckdb == 1.1.1
-git+https://github.com/dbt-labs/dbt-core.git@experiment/local-profiles#egg=dbt-core&subdirectory=core
-git+https://github.com/dbt-labs/dbt-core.git@experiment/local-profiles#egg=dbt-postgres&subdirectory=plugins/postgres
+duckdb==0.3.4
+git+https://github.com/dbeatty10/dbt-duckdb.git@dbeatty_bump_dbt_core_minor_version#egg=dbt-duckdb
+git+https://github.com/dbt-labs/dbt-core.git@experiment/local-profiles-1.1.1#egg=dbt-core&subdirectory=core
+git+https://github.com/dbt-labs/dbt-core.git@experiment/local-profiles-1.1.1#egg=dbt-postgres&subdirectory=plugins/postgres
