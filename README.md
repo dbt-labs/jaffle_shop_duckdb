@@ -26,15 +26,15 @@ The raw data consists of customers, orders, and payments, with the following ent
 **Mach Speed: No explanation needed**
 
 ```shell
-python3 -m venv venv # create a virtual environment
-source venv/bin/activate # actitvate the virtual environment
-./venv/bin/python3 -m pip install --upgrade pip # upgrade pip to avoid installation errors
-python3 -m pip install -r requirements.txt # install all dependencies
-source venv/bin/activate # reactivate the virtual environment
-dbt build # load raw data into database, create tables/views in proper order, test data
-./D select 42 as answer from customers limit 1; # verify dbt worked with ad hoc query
-dbt docs generate # generate docs for this project
-dbt docs serve # serve docs for this project in your local browser
+python3 -m venv venv
+source venv/bin/activate
+venv/bin/python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+source venv/bin/activate
+dbt build
+./D select 42 as answer from customers limit 1;
+dbt docs generate
+dbt docs serve
 ```
 
 Prerequisities: Python >= 3.5
