@@ -32,7 +32,6 @@ venv/bin/python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 source venv/bin/activate
 dbt build
-./D select 42 as answer from customers limit 1;
 dbt docs generate
 dbt docs serve
 ```
@@ -130,9 +129,26 @@ To get up and running with this project:
     dbt build
     ```
 
-1. Quickly browse the data -- just for demo purposes -- see below for better ways to query the data:
+1. Query the data:
+
+    Launch a DuckDB command-line interface (CLI):
     ```shell
-    ./D select 42 as answer from customers limit 1;
+    duckcli jaffle_shop.duckdb
+    ```
+
+    Run a query at the prompt and exit:
+    ```
+    select * from customers where customer_id = 42;
+    exit;
+    ```
+
+    Alternatively, use a single-liner to perform the query:
+    ```shell
+    duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+    ```
+    or:
+    ```shell
+    echo 'select * from customers where customer_id = 42' | duckcli jaffle_shop.duckdb
     ```
 
 1. Generate and view the documentation for the project:
@@ -162,6 +178,7 @@ To get up and running with this project:
 
 ### Browsing the data
 Some options:
+- [duckcli](https://pypi.org/project/duckcli/)
 - [DuckDB CLI](https://duckdb.org/docs/installation/?environment=cli)
 - [How to set up DBeaver SQL IDE for DuckDB](https://duckdb.org/docs/guides/sql_editors/dbeaver)
 
