@@ -23,19 +23,10 @@ jobs:
           venv/bin/python3 -m pip install --upgrade pip
           python3 -m pip install -r requirements.txt
           source venv/bin/activate
-        shell: bash
-      - name: Debug connection
-        run: |
           which dbt
           dbt --version
           dbt debug
-        shell: bash
-      - name: Run all the dbt operations(seed, run, test)
-        run: |
           dbt build
-        shell: bash
-      - name: Generate dbt docs
-        run: |
           dbt docs generate
         shell: bash
       - name: Verify dbt works with ad hoc query
@@ -59,19 +50,10 @@ jobs:
             venv/bin/python3 -m pip install --upgrade pip
             python3 -m pip install -r requirements.txt
             source venv/bin/activate
-          shell: bash
-        - name: Debug connection
-          run: |
             which dbt
             dbt --version
             dbt debug
-          shell: bash
-        - name: Run all the dbt operations(seed, run, test)
-          run: |
             dbt build
-          shell: bash
-        - name: Generate dbt docs
-          run: |
             dbt docs generate
           shell: bash
         - name: Verify dbt works with ad hoc query
@@ -95,19 +77,10 @@ jobs:
             python -m pip install --upgrade pip
             python -m pip install -r requirements.txt
             venv\Scripts\Activate.ps1
-          shell: powershell
-        - name: Debug connection
-          run: |
             Get-Command dbt
             dbt --version
             dbt debug
-          shell: powershell
-        - name: Run all the dbt operations(seed, run, test)
-          run: |
             dbt build
-          shell: powershell
-        - name: Generate dbt docs
-          run: |
             dbt docs generate
           shell: powershell
         - name: Verify dbt works with ad hoc query
@@ -131,19 +104,10 @@ jobs:
             python -m pip install --upgrade pip
             python -m pip install -r requirements.txt
             venv\Scripts\activate.bat
-          shell: cmd
-        - name: Debug connection
-          run: |
             where dbt
             dbt --version
             dbt debug
-          shell: cmd
-        - name: Run all the dbt operations(seed, run, test)
-          run: |
             dbt build
-          shell: cmd
-        - name: Generate dbt docs
-          run: |
             dbt docs generate
           shell: cmd
         - name: Verify dbt works with ad hoc query
