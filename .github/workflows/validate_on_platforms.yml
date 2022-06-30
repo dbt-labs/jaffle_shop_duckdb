@@ -16,21 +16,19 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: "3.8.x"
-      - name: Setup Virtual Environment
+      - name: Install dbt and DuckDB in a virtual environment
         run: |
           python3 -m venv venv
-        shell: bash
-      - name: Activate Virtual Environment
-        run: |
+          source venv/bin/activate
+          venv/bin/python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
           source venv/bin/activate
         shell: bash
-      - name: Upgrade pip
+      - name: Debug connection
         run: |
-          venv/bin/python3 -m pip install --upgrade pip
-        shell: bash
-      - name: Install dependencies
-        run: |
-          python3 -m pip install -r requirements.txt
+          which dbt
+          dbt --version
+          dbt debug
         shell: bash
       - name: Run all the dbt operations(seed, run, test)
         run: |
@@ -54,21 +52,19 @@ jobs:
           uses: actions/setup-python@v1
           with:
             python-version: "3.8.x"
-        - name: Setup Virtual Environment
+        - name: Install dbt and DuckDB in a virtual environment
           run: |
             python3 -m venv venv
-          shell: bash
-        - name: Activate Virtual Environment
-          run: |
+            source venv/bin/activate
+            venv/bin/python3 -m pip install --upgrade pip
+            python3 -m pip install -r requirements.txt
             source venv/bin/activate
           shell: bash
-        - name: Upgrade pip
+        - name: Debug connection
           run: |
-            venv/bin/python3 -m pip install --upgrade pip
-          shell: bash
-        - name: Install dependencies
-          run: |
-            python3 -m pip install -r requirements.txt
+            which dbt
+            dbt --version
+            dbt debug
           shell: bash
         - name: Run all the dbt operations(seed, run, test)
           run: |
@@ -95,18 +91,16 @@ jobs:
         - name: Setup Virtual Environment
           run: |
             python -m venv venv
-          shell: powershell
-        - name: Activate Virtual Environment
-          run: |
+            venv\Scripts\Activate.ps1
+            python -m pip install --upgrade pip
+            python -m pip install -r requirements.txt
             venv\Scripts\Activate.ps1
           shell: powershell
-        - name: Upgrade pip
+        - name: Debug connection
           run: |
-            python -m pip install --upgrade pip
-          shell: powershell
-        - name: Install dependencies
-          run: |
-            python -m pip install -r requirements.txt
+            Get-Command dbt
+            dbt --version
+            dbt debug
           shell: powershell
         - name: Run all the dbt operations(seed, run, test)
           run: |
@@ -133,18 +127,16 @@ jobs:
         - name: Setup Virtual Environment
           run: |
             python -m venv venv
-          shell: cmd
-        - name: Activate Virtual Environment
-          run: |
+            venv\Scripts\activate.bat
+            python -m pip install --upgrade pip
+            python -m pip install -r requirements.txt
             venv\Scripts\activate.bat
           shell: cmd
-        - name: Upgrade pip
+        - name: Debug connection
           run: |
-            python -m pip install --upgrade pip
-          shell: cmd
-        - name: Install dependencies
-          run: |
-            python -m pip install -r requirements.txt
+            where dbt
+            dbt --version
+            dbt debug
           shell: cmd
         - name: Run all the dbt operations(seed, run, test)
           run: |
