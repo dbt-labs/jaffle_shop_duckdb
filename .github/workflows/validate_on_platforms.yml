@@ -19,24 +19,31 @@ jobs:
       - name: Setup Virtual Environment
         run: |
           python3 -m venv venv
-      - name: Activate Virtual Environment 
+        shell: bash
+      - name: Activate Virtual Environment
         run: |
           source venv/bin/activate
+        shell: bash
       - name: Upgrade pip
         run: |
           venv/bin/python3 -m pip install --upgrade pip
+        shell: bash
       - name: Install dependencies
         run: |
           python3 -m pip install -r requirements.txt
+        shell: bash
       - name: Run all the dbt operations(seed, run, test)
         run: |
           dbt build
+        shell: bash
       - name: Generate dbt docs
         run: |
           dbt docs generate
+        shell: bash
       - name: Verify dbt works with ad hoc query
         run: |
           duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+        shell: bash
 
   build-linux:
       name: Validate Getting Started works on linux
@@ -50,27 +57,34 @@ jobs:
         - name: Setup Virtual Environment
           run: |
             python3 -m venv venv
-        - name: Activate Virtual Environment 
+          shell: bash
+        - name: Activate Virtual Environment
           run: |
             source venv/bin/activate
+          shell: bash
         - name: Upgrade pip
           run: |
             venv/bin/python3 -m pip install --upgrade pip
+          shell: bash
         - name: Install dependencies
           run: |
             python3 -m pip install -r requirements.txt
+          shell: bash
         - name: Run all the dbt operations(seed, run, test)
           run: |
             dbt build
+          shell: bash
         - name: Generate dbt docs
           run: |
             dbt docs generate
+          shell: bash
         - name: Verify dbt works with ad hoc query
           run: |
             duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+          shell: bash
 
-  build-windows:
-      name: Validate Getting Started works on windows
+  build-windows-powershell:
+      name: Validate Getting Started works on Windows PowerShell
       runs-on: windows-latest
       steps:
         - uses: actions/checkout@v2
@@ -81,21 +95,66 @@ jobs:
         - name: Setup Virtual Environment
           run: |
             python -m venv venv
-        - name: Activate Virtual Environment 
+          shell: powershell
+        - name: Activate Virtual Environment
           run: |
-            .\venv\Scripts\activate
+            venv\Scripts\Activate.ps1
+          shell: powershell
         - name: Upgrade pip
           run: |
             python -m pip install --upgrade pip
+          shell: powershell
         - name: Install dependencies
           run: |
             python -m pip install -r requirements.txt
+          shell: powershell
         - name: Run all the dbt operations(seed, run, test)
           run: |
             dbt build
+          shell: powershell
         - name: Generate dbt docs
           run: |
             dbt docs generate
+          shell: powershell
         - name: Verify dbt works with ad hoc query
           run: |
             duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+          shell: powershell
+
+  build-windows-cmd:
+      name: Validate Getting Started works on Windows cmd.exe
+      runs-on: windows-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python
+          uses: actions/setup-python@v1
+          with:
+            python-version: "3.8.x"
+        - name: Setup Virtual Environment
+          run: |
+            python -m venv venv
+          shell: cmd
+        - name: Activate Virtual Environment
+          run: |
+            venv\Scripts\activate.bat
+          shell: cmd
+        - name: Upgrade pip
+          run: |
+            python -m pip install --upgrade pip
+          shell: cmd
+        - name: Install dependencies
+          run: |
+            python -m pip install -r requirements.txt
+          shell: cmd
+        - name: Run all the dbt operations(seed, run, test)
+          run: |
+            dbt build
+          shell: cmd
+        - name: Generate dbt docs
+          run: |
+            dbt docs generate
+          shell: cmd
+        - name: Verify dbt works with ad hoc query
+          run: |
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+          shell: cmd
