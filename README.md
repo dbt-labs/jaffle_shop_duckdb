@@ -57,7 +57,7 @@ To get up and running with this project:
     ```shell
     python3 -m venv venv
     source venv/bin/activate
-    ./venv/bin/python3 -m pip install --upgrade pip
+    venv/bin/python3 -m pip install --upgrade pip
     python3 -m pip install -r requirements.txt
     source venv/bin/activate
     ```
@@ -101,10 +101,10 @@ To get up and running with this project:
 
     ```shell
     python -m venv venv
-    .\venv\Scripts\activate
+    venv\Scripts\activate.bat
     python -m pip install --upgrade pip
     python -m pip install -r requirements.txt
-    .\venv\Scripts\activate
+    venv\Scripts\activate.bat
     ```
     </details>
 
@@ -112,10 +112,11 @@ To get up and running with this project:
     <summary>Windows PowerShell</summary>
 
     ```shell
-    python3 -m venv venv
-    source venv\Scripts\Activate.ps1
-    python3 -m pip install -r requirements.txt
-    source venv\Scripts\Activate.ps1
+    python -m venv venv
+    venv\Scripts\Activate.ps1
+    python -m pip install --upgrade pip
+    python -m pip install -r requirements.txt
+    venv\Scripts\Activate.ps1
     ```
     </details>
 
