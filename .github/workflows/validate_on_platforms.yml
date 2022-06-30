@@ -28,9 +28,6 @@ jobs:
           dbt debug
           dbt build
           dbt docs generate
-        shell: bash
-      - name: Verify dbt works with ad hoc query
-        run: |
           duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
         shell: bash
 
@@ -55,9 +52,6 @@ jobs:
             dbt debug
             dbt build
             dbt docs generate
-          shell: bash
-        - name: Verify dbt works with ad hoc query
-          run: |
             duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
           shell: bash
 
@@ -82,9 +76,6 @@ jobs:
             dbt debug
             dbt build
             dbt docs generate
-          shell: powershell
-        - name: Verify dbt works with ad hoc query
-          run: |
             duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
           shell: powershell
 
@@ -109,8 +100,5 @@ jobs:
             dbt debug
             dbt build
             dbt docs generate
-          shell: cmd
-        - name: Verify dbt works with ad hoc query
-          run: |
             duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
           shell: cmd
