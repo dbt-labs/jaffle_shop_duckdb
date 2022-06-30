@@ -80,16 +80,16 @@ jobs:
             python-version: "3.8.x"
         - name: Setup Virtual Environment
           run: |
-            python3 -m venv venv
+            python -m venv venv
         - name: Activate Virtual Environment 
           run: |
-            source venv\Scripts\activate.bat
+            .\venv\Scripts\activate
         - name: Upgrade pip
           run: |
-            venv\bin\python3 -m pip install --upgrade pip
+            .\venv\bin\python -m pip install --upgrade pip
         - name: Install dependencies
           run: |
-            python3 -m pip install -r requirements.txt
+            python -m pip install -r requirements.txt
         - name: Run all the dbt operations(seed, run, test)
           run: |
             dbt build
