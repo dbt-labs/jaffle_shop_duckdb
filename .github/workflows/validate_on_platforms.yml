@@ -67,10 +67,10 @@ jobs:
         - name: Install dbt and DuckDB in a virtual environment
           run: |
             python3 -m venv venv
-            source venv/bin/Activate.ps1
+            venv/bin/Activate.ps1
             venv/bin/python3 -m pip install --upgrade pip
             python3 -m pip install -r requirements.txt
-            source venv/bin/Activate.ps1
+            venv/bin/Activate.ps1
             Get-Command dbt
             dbt --version
             dbt debug
@@ -107,6 +107,7 @@ jobs:
       name: Validate Getting Started works on Windows cmd.exe
       runs-on: windows-latest
       steps:
+      steps:
         - uses: actions/checkout@v2
         - name: Set up Python
           uses: actions/setup-python@v1
@@ -114,6 +115,7 @@ jobs:
             python-version: "3.8.x"
         - name: Setup Virtual Environment
           run: |
+            echo '::echo::on'
             python -m venv venv
             venv\Scripts\activate.bat
             python -m pip install --upgrade pip
