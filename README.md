@@ -90,9 +90,9 @@ To get up and running with this project:
 
     ```shell
     python3 -m venv venv
-    source venv/bin/Activate.ps1
+    venv/bin/Activate.ps1
     python3 -m pip install -r requirements.txt
-    source venv/bin/Activate.ps1
+    venv/bin/Activate.ps1
     ```
     </details>
 
