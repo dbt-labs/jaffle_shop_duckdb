@@ -55,6 +55,30 @@ jobs:
             duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
           shell: bash
 
+  build-linux-powershell-core:
+      name: Validate Getting Started works on Linux PowerShell Core
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python
+          uses: actions/setup-python@v1
+          with:
+            python-version: "3.8.x"
+        - name: Install dbt and DuckDB in a virtual environment
+          run: |
+            python3 -m venv venv
+            source venv/bin/Activate.ps1
+            venv/bin/python3 -m pip install --upgrade pip
+            python3 -m pip install -r requirements.txt
+            source venv/bin/Activate.ps1
+            Get-Command dbt
+            dbt --version
+            dbt debug
+            dbt build
+            dbt docs generate
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+          shell: pwsh
+
   build-windows-powershell:
       name: Validate Getting Started works on Windows PowerShell
       runs-on: windows-latest
