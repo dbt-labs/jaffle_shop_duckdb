@@ -7,7 +7,7 @@ on:
     branches: [duckdb]
     
 jobs:
-  build:
+  build-macos:
     name: Validate Getting Started works on macOS
     runs-on: macos-latest
     steps:
@@ -37,3 +37,65 @@ jobs:
       - name: Verify dbt works with ad hoc query
         run: |
           duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+
+  build-linux:
+      name: Validate Getting Started works on linux
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python
+          uses: actions/setup-python@v1
+          with:
+            python-version: "3.8.x"
+        - name: Setup Virtual Environment
+          run: |
+            python3 -m venv venv
+        - name: Activate Virtual Environment 
+          run: |
+            source venv/bin/activate
+        - name: Upgrade pip
+          run: |
+            venv/bin/python3 -m pip install --upgrade pip
+        - name: Install dependencies
+          run: |
+            python3 -m pip install -r requirements.txt
+        - name: Run all the dbt operations(seed, run, test)
+          run: |
+            dbt build
+        - name: Generate dbt docs
+          run: |
+            dbt docs generate
+        - name: Verify dbt works with ad hoc query
+          run: |
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+
+  build-windows:
+      name: Validate Getting Started works on windows
+      runs-on: windows-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python
+          uses: actions/setup-python@v1
+          with:
+            python-version: "3.8.x"
+        - name: Setup Virtual Environment
+          run: |
+            python3 -m venv venv
+        - name: Activate Virtual Environment 
+          run: |
+            source venv\Scripts\activate.bat
+        - name: Upgrade pip
+          run: |
+            venv\bin\python3 -m pip install --upgrade pip
+        - name: Install dependencies
+          run: |
+            python3 -m pip install -r requirements.txt
+        - name: Run all the dbt operations(seed, run, test)
+          run: |
+            dbt build
+        - name: Generate dbt docs
+          run: |
+            dbt docs generate
+        - name: Verify dbt works with ad hoc query
+          run: |
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
