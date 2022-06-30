@@ -100,10 +100,11 @@ To get up and running with this project:
     <summary>Windows cmd.exe</summary>
 
     ```shell
-    python3 -m venv venv
-    source venv\Scripts\activate.bat
-    python3 -m pip install -r requirements.txt
-    source venv\Scripts\activate.bat
+    python -m venv venv
+    .\venv\Scripts\activate
+    python -m pip install --upgrade pip
+    python -m pip install -r requirements.txt
+    .\venv\Scripts\activate
     ```
     </details>
 
