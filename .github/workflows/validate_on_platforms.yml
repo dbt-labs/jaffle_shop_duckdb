@@ -107,7 +107,6 @@ jobs:
       name: Validate Getting Started works on Windows cmd.exe
       runs-on: windows-latest
       steps:
-      steps:
         - uses: actions/checkout@v2
         - name: Set up Python
           uses: actions/setup-python@v1
