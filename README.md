@@ -69,6 +69,7 @@ To get up and running with this project:
     ```shell
     python3 -m venv venv
     source venv/bin/activate.fish
+    venv/bin/python3 -m pip install --upgrade pip
     python3 -m pip install -r requirements.txt
     source venv/bin/activate.fish
     ```
@@ -80,6 +81,7 @@ To get up and running with this project:
     ```shell
     python3 -m venv venv
     source venv/bin/activate.csh
+    venv/bin/python3 -m pip install --upgrade pip
     python3 -m pip install -r requirements.txt
     source venv/bin/activate.csh
     ```
@@ -91,6 +93,7 @@ To get up and running with this project:
     ```shell
     python3 -m venv venv
     venv/bin/Activate.ps1
+    venv/bin/python3 -m pip install --upgrade pip
     python3 -m pip install -r requirements.txt
     venv/bin/Activate.ps1
     ```

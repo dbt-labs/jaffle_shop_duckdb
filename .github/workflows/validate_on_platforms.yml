@@ -114,7 +114,6 @@ jobs:
             python-version: "3.8.x"
         - name: Setup Virtual Environment
           run: |
-            echo '::echo::on'
             python -m venv venv
             venv\Scripts\activate.bat
             python -m pip install --upgrade pip
