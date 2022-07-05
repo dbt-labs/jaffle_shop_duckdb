@@ -8,35 +8,28 @@ on:
     
 jobs:
   build-macos:
-    name: Validate Getting Started works on macOS
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: "3.8.x"
-      - name: Setup Virtual Environment
-        run: |
-          python3 -m venv venv
-      - name: Activate Virtual Environment 
-        run: |
-          source venv/bin/activate
-      - name: Upgrade pip
-        run: |
-          venv/bin/python3 -m pip install --upgrade pip
-      - name: Install dependencies
-        run: |
-          python3 -m pip install -r requirements.txt
-      - name: Run all the dbt operations(seed, run, test)
-        run: |
-          dbt build
-      - name: Generate dbt docs
-        run: |
-          dbt docs generate
-      - name: Verify dbt works with ad hoc query
-        run: |
-          duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+      name: Validate Getting Started works on macOS
+      runs-on: macos-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python
+          uses: actions/setup-python@v1
+          with:
+            python-version: "3.8.x"
+        - name: Full Deploy Commands
+          run: |
+            python3 -m venv venv
+            source venv/bin/activate
+            venv/bin/python3 -m pip install --upgrade pip
+            python3 -m pip install -r requirements.txt
+            source venv/bin/activate
+            which dbt
+            dbt --version
+            dbt debug
+            dbt build
+            dbt docs generate
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+          shell: bash
 
   build-linux:
       name: Validate Getting Started works on linux
@@ -47,30 +40,47 @@ jobs:
           uses: actions/setup-python@v1
           with:
             python-version: "3.8.x"
-        - name: Setup Virtual Environment
+        - name: Full Deploy Commands
           run: |
             python3 -m venv venv
-        - name: Activate Virtual Environment 
-          run: |
             source venv/bin/activate
-        - name: Upgrade pip
-          run: |
             venv/bin/python3 -m pip install --upgrade pip
-        - name: Install dependencies
-          run: |
             python3 -m pip install -r requirements.txt
-        - name: Run all the dbt operations(seed, run, test)
-          run: |
+            source venv/bin/activate
+            which dbt
+            dbt --version
+            dbt debug
             dbt build
-        - name: Generate dbt docs
-          run: |
             dbt docs generate
-        - name: Verify dbt works with ad hoc query
-          run: |
             duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+          shell: bash
 
-  build-windows:
-      name: Validate Getting Started works on windows
+  build-linux-powershell-core:
+      name: Validate Getting Started works on Linux PowerShell Core
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python
+          uses: actions/setup-python@v1
+          with:
+            python-version: "3.8.x"
+        - name: Full Deploy Commands
+          run: |
+            python3 -m venv venv
+            venv/bin/Activate.ps1
+            venv/bin/python3 -m pip install --upgrade pip
+            python3 -m pip install -r requirements.txt
+            venv/bin/Activate.ps1
+            Get-Command dbt
+            dbt --version
+            dbt debug
+            dbt build
+            dbt docs generate
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+          shell: pwsh
+
+  build-windows-powershell:
+      name: Validate Getting Started works on Windows PowerShell
       runs-on: windows-latest
       steps:
         - uses: actions/checkout@v2
@@ -78,24 +88,41 @@ jobs:
           uses: actions/setup-python@v1
           with:
             python-version: "3.8.x"
-        - name: Setup Virtual Environment
+        - name: Full Deploy Commands
           run: |
             python -m venv venv
-        - name: Activate Virtual Environment 
-          run: |
-            .\venv\Scripts\activate
-        - name: Upgrade pip
-          run: |
+            venv\Scripts\Activate.ps1
             python -m pip install --upgrade pip
-        - name: Install dependencies
-          run: |
             python -m pip install -r requirements.txt
-        - name: Run all the dbt operations(seed, run, test)
-          run: |
+            venv\Scripts\Activate.ps1
+            Get-Command dbt
+            dbt --version
+            dbt debug
             dbt build
-        - name: Generate dbt docs
-          run: |
             dbt docs generate
-        - name: Verify dbt works with ad hoc query
-          run: |
             duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+          shell: powershell
+
+  build-windows-cmd:
+      name: Validate Getting Started works on Windows cmd.exe
+      runs-on: windows-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python
+          uses: actions/setup-python@v1
+          with:
+            python-version: "3.8.x"
+        - name: Full Deploy Commands
+          run: |
+            python -m venv venv
+            venv\Scripts\activate.bat
+            python -m pip install --upgrade pip
+            python -m pip install -r requirements.txt
+            venv\Scripts\activate.bat
+            where dbt
+            dbt --version
+            dbt debug
+            dbt build
+            dbt docs generate
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+          shell: cmd
