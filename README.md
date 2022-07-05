@@ -39,6 +39,8 @@ If you want an adrenaline rush from a process that used to take dbt newcomers `1
 > Run `dbt` as fast as possible in a single copy and paste motion!
 
 ```shell
+git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
+cd jaffle_shop_duckdb
 python3 -m venv venv
 source venv/bin/activate
 venv/bin/python3 -m pip install --upgrade pip
@@ -57,7 +59,7 @@ To get up and running with this project:
 
 1. Change into the `jaffle_shop_duck` directory from the command line:
     ```shell
-    cd jaffle_shop_duck
+    cd jaffle_shop_duckdb
     ```
 
 1. Install dbt and DuckDB in a virtual environment.
