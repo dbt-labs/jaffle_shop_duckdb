@@ -207,3 +207,74 @@ For more information on dbt:
 - Read the [dbt viewpoint](https://docs.getdbt.com/docs/about/viewpoint).
 - Join the [dbt community](http://community.getdbt.com/).
 ---
+
+<details>
+<summary>Why a 2nd activation of the virtual environment?</summary>
+
+This may not be necessary for many users, but might be for some. Read on for a first-person report from @dbeatty10.
+
+I use `zsh` as my shell on my MacBook Pro, and I use `pyenv` to manage my Python environments. I already had an alpha version of dbt Core 1.2 installed (and yet another via [pipx](https://pypa.github.io/pipx/installation/)):
+```shell
+$ which dbt
+/Users/dbeatty/.pyenv/shims/dbt
+```
+```shell
+$ dbt --version
+Core:
+  - installed: 1.2.0-a1
+  - latest:    1.1.1    - Ahead of latest version!
+
+Plugins:
+  - bigquery:  1.2.0a1 - Ahead of latest version!
+  - snowflake: 1.2.0a1 - Ahead of latest version!
+  - redshift:  1.2.0a1 - Ahead of latest version!
+  - postgres:  1.2.0a1 - Ahead of latest version!
+```
+
+Then I ran all the steps to create a virtual environment and install the requirements of our DuckDB-based Jaffle Shop repo:
+```shell
+$ python3 -m venv venv
+$ source venv/bin/activate
+(venv) $ venv/bin/python3 -m pip install --upgrade pip
+(venv) $ python3 -m pip install -r requirements.txt
+```
+
+Let's examine where `dbt` is installed and which version it is reporting:
+```shell
+(venv) $ which dbt
+/Users/dbeatty/projects/jaffle_duck/venv/bin/dbt
+```
+
+```shell
+(venv) $ dbt --version
+Core:
+  - installed: 1.2.0-a1
+  - latest:    1.1.1    - Ahead of latest version!
+
+Plugins:
+  - bigquery:  1.2.0a1 - Ahead of latest version!
+  - snowflake: 1.2.0a1 - Ahead of latest version!
+  - redshift:  1.2.0a1 - Ahead of latest version!
+  - postgres:  1.2.0a1 - Ahead of latest version!
+```
+
+❌ That isn't what we expected -- something isn't right. 😢
+
+So let's reactivate the virtual environment and try again...
+```shell
+(venv) $ source venv/bin/activate
+```
+
+```shell
+(venv) $ dbt --version
+Core:
+  - installed: 1.1.1
+  - latest:    1.1.1 - Up to date!
+
+Plugins:
+  - postgres: 1.1.1 - Up to date!
+  - duckdb:   1.1.3 - Up to date!
+```
+
+✅ This is what we want -- the 2nd reactivation worked. 😎 
+</details>
