@@ -36,6 +36,7 @@ If you want an adrenaline rush from a process that used to take dbt newcomers `1
 ### Running this project
 
 **Mach Speed: No explanation needed**
+> Run `dbt` as fast as possible in a single copy and paste motion!
 
 ```shell
 python3 -m venv venv
