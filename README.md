@@ -43,7 +43,7 @@ git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
 cd jaffle_shop_duckdb
 python3 -m venv venv
 source venv/bin/activate
-venv/bin/python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 source venv/bin/activate
 dbt build
