@@ -138,13 +138,83 @@ To get up and running with this project:
     ```
     </details>
 
-1. Ensure your profile is setup correctly from the command line:
+    *Why a 2nd activation of the virtual environment?*
+    <details>
+    <summary>This may not be necessary for many users, but might be for some. Read on for a first-person report from @dbeatty10.</summary>
+
+    I use `zsh` as my shell on my MacBook Pro, and I use `pyenv` to manage my Python environments. I already had an alpha version of dbt Core 1.2 installed (and yet another via [pipx](https://pypa.github.io/pipx/installation/)):
+    ```shell
+    $ which dbt
+    /Users/dbeatty/.pyenv/shims/dbt
+    ```
+    ```shell
+    $ dbt --version
+    Core:
+      - installed: 1.2.0-a1
+      - latest:    1.1.1    - Ahead of latest version!
+
+    Plugins:
+      - bigquery:  1.2.0a1 - Ahead of latest version!
+      - snowflake: 1.2.0a1 - Ahead of latest version!
+      - redshift:  1.2.0a1 - Ahead of latest version!
+      - postgres:  1.2.0a1 - Ahead of latest version!
+    ```
+
+    Then I ran all the steps to create a virtual environment and install the requirements of our DuckDB-based Jaffle Shop repo:
+    ```shell
+    $ python3 -m venv venv
+    $ source venv/bin/activate
+    (venv) $ venv/bin/python3 -m pip install --upgrade pip
+    (venv) $ python3 -m pip install -r requirements.txt
+    ```
+
+    Let's examine where `dbt` is installed and which version it is reporting:
+    ```shell
+    (venv) $ which dbt
+    /Users/dbeatty/projects/jaffle_duck/venv/bin/dbt
+    ```
+
+    ```shell
+    (venv) $ dbt --version
+    Core:
+      - installed: 1.2.0-a1
+      - latest:    1.1.1    - Ahead of latest version!
+
+    Plugins:
+      - bigquery:  1.2.0a1 - Ahead of latest version!
+      - snowflake: 1.2.0a1 - Ahead of latest version!
+      - redshift:  1.2.0a1 - Ahead of latest version!
+      - postgres:  1.2.0a1 - Ahead of latest version!
+    ```
+
+    ❌ That isn't what we expected -- something isn't right. 😢
+
+    So let's reactivate the virtual environment and try again...
+    ```shell
+    (venv) $ source venv/bin/activate
+    ```
+
+    ```shell
+    (venv) $ dbt --version
+    Core:
+      - installed: 1.1.1
+      - latest:    1.1.1 - Up to date!
+
+    Plugins:
+      - postgres: 1.1.1 - Up to date!
+      - duckdb:   1.1.3 - Up to date!
+    ```
+
+    ✅ This is what we want -- the 2nd reactivation worked. 😎 
+    </details>
+
+1. Ensure your [profile](https://docs.getdbt.com/reference/profiles.yml) is setup correctly from the command line:
     ```shell
     dbt --version
     dbt debug
     ```
 
-1. Load the CSVs with the demo data set, run the models, and test the output of the models:
+1. Load the CSVs with the demo data set, run the models, and test the output of the models using the [dbt build](https://docs.getdbt.com/reference/commands/build) command:
     ```shell
     dbt build
     ```
@@ -189,9 +259,9 @@ To get up and running with this project:
     dbt run
     ```
 
-    > **NOTE:** If this steps fails, it might mean that you need to make small changes to the SQL in the models folder to adjust for the flavor of SQL of your target database. Definitely consider this if you are using a community-contributed adapter.
+    > **NOTE:** If you decide to run this project in your own data warehouse (outside of this DuckDB demo) and steps fail, it might mean that you need to make small changes to the SQL in the models folder to adjust for the flavor of SQL of your target database. Definitely consider this if you are using a community-contributed adapter.
 
-1. Test the output of the models:
+1. Test the output of the models using the [test](https://docs.getdbt.com/reference/commands/test) command:
     ```shell
     dbt test
     ```
@@ -213,83 +283,8 @@ This is a known issue in DuckDB. If you are using DBeaver, this means shutting d
 
 Very worst-case, deleting the database file will get you back in action (BUT you will lose all your data).
 
-### What is a jaffle?
-A jaffle is a toasted sandwich with crimped, sealed edges. Invented in Bondi in 1949, the humble jaffle is an Australian classic. The sealed edges allow jaffle-eaters to enjoy liquid fillings inside the sandwich, which reach temperatures close to the core of the earth during cooking. Often consumed at home after a night out, the most classic filling is tinned spaghetti, while my personal favourite is leftover beef stew with melted cheese.
-
 ---
 For more information on dbt:
-- Read the [introduction to dbt](https://docs.getdbt.com/docs/introduction).
-- Read the [dbt viewpoint](https://docs.getdbt.com/docs/about/viewpoint).
-- Join the [dbt community](http://community.getdbt.com/).
----
-
-<details>
-<summary>Why a 2nd activation of the virtual environment?</summary>
-
-This may not be necessary for many users, but might be for some. Read on for a first-person report from @dbeatty10.
-
-I use `zsh` as my shell on my MacBook Pro, and I use `pyenv` to manage my Python environments. I already had an alpha version of dbt Core 1.2 installed (and yet another via [pipx](https://pypa.github.io/pipx/installation/)):
-```shell
-$ which dbt
-/Users/dbeatty/.pyenv/shims/dbt
-```
-```shell
-$ dbt --version
-Core:
-  - installed: 1.2.0-a1
-  - latest:    1.1.1    - Ahead of latest version!
-
-Plugins:
-  - bigquery:  1.2.0a1 - Ahead of latest version!
-  - snowflake: 1.2.0a1 - Ahead of latest version!
-  - redshift:  1.2.0a1 - Ahead of latest version!
-  - postgres:  1.2.0a1 - Ahead of latest version!
-```
-
-Then I ran all the steps to create a virtual environment and install the requirements of our DuckDB-based Jaffle Shop repo:
-```shell
-$ python3 -m venv venv
-$ source venv/bin/activate
-(venv) $ venv/bin/python3 -m pip install --upgrade pip
-(venv) $ python3 -m pip install -r requirements.txt
-```
-
-Let's examine where `dbt` is installed and which version it is reporting:
-```shell
-(venv) $ which dbt
-/Users/dbeatty/projects/jaffle_duck/venv/bin/dbt
-```
-
-```shell
-(venv) $ dbt --version
-Core:
-  - installed: 1.2.0-a1
-  - latest:    1.1.1    - Ahead of latest version!
-
-Plugins:
-  - bigquery:  1.2.0a1 - Ahead of latest version!
-  - snowflake: 1.2.0a1 - Ahead of latest version!
-  - redshift:  1.2.0a1 - Ahead of latest version!
-  - postgres:  1.2.0a1 - Ahead of latest version!
-```
-
-❌ That isn't what we expected -- something isn't right. 😢
-
-So let's reactivate the virtual environment and try again...
-```shell
-(venv) $ source venv/bin/activate
-```
-
-```shell
-(venv) $ dbt --version
-Core:
-  - installed: 1.1.1
-  - latest:    1.1.1 - Up to date!
-
-Plugins:
-  - postgres: 1.1.1 - Up to date!
-  - duckdb:   1.1.3 - Up to date!
-```
-
-✅ This is what we want -- the 2nd reactivation worked. 😎 
-</details>
+- Read the [introduction to dbt](https://docs.getdbt.com/docs/introduction)
+- Read the [dbt viewpoint](https://docs.getdbt.com/docs/about/viewpoint)
+- Join the [dbt Community](http://community.getdbt.com/)
