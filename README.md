@@ -1,8 +1,14 @@
-## Testing dbt project: `jaffle_shop`
+# Testing dbt project: `jaffle_shop`
 
 `jaffle_shop` is a fictional ecommerce store. This dbt project transforms raw data from an app database into a customers and orders model ready for analytics.
 
-### What is this repo?
+<details>
+<summary>
+
+## What is this repo?
+
+</summary>
+
 What this repo _is_:
 - A self-contained playground dbt project, useful for testing out scripts, and communicating some of the core dbt concepts.
 
@@ -14,14 +20,24 @@ What this repo _is not_:
     - CI/CD integrations
 - A demonstration of using dbt for a high-complex project, or a demo of advanced features (e.g. macros, packages, hooks, operations) — we're just trying to keep things simple here!
 
-### What's in this repo?
+</details>
+
+<details>
+<summary>
+
+## What's in this repo?
+
+</summary>
+
 This repo contains [seeds](https://docs.getdbt.com/docs/building-a-dbt-project/seeds) that includes some (fake) raw data from a fictional app.
 
 The raw data consists of customers, orders, and payments, with the following entity-relationship diagram:
 
 ![Jaffle Shop ERD](/etc/jaffle_shop_erd.png)
 
-### Why should I care about this repo?
+</details>
+
+## Why should I care about this repo?
 If you're just starting your cloud data warehouse journey and are hungry to get started with dbt before your organization officially gets a data warehouse, you should check out this repo.
 
 If you want to run 28 SQL operations with dbt in less than `1 second`, for free, and all on your local machine, you should check out this repo.
@@ -33,25 +49,118 @@ If you want an adrenaline rush from a process that used to take dbt newcomers `1
 
 [Verified GitHub Action on dbt Performance](https://github.com/dbt-labs/jaffle_shop_duckdb/runs/7141529753?check_suite_focus=true#step:4:306)
 
-### Running this project
+## Running this project
 
-**Mach Speed: No explanation needed**
+### Mach Speed: No explanation needed
+
 > Run `dbt` as fast as possible in a single copy and paste motion!
+
+<details open>
+<summary>POSIX bash/zsh</summary>
 
 ```shell
 git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
 cd jaffle_shop_duckdb
 python3 -m venv venv
 source venv/bin/activate
-python3 -m pip install --upgrade pip
+venv/bin/python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 source venv/bin/activate
 dbt build
 dbt docs generate
 dbt docs serve
 ```
+</details>
+
+<details>
+<summary>POSIX fish</summary>
+
+```shell
+git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
+cd jaffle_shop_duckdb
+python3 -m venv venv
+source venv/bin/activate.fish
+venv/bin/python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+source venv/bin/activate.fish
+dbt build
+dbt docs generate
+dbt docs serve
+```
+</details>
+
+<details>
+<summary>POSIX csh/tcsh</summary>
+
+```shell
+git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
+cd jaffle_shop_duckdb
+python3 -m venv venv
+source venv/bin/activate.csh
+venv/bin/python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+source venv/bin/activate.csh
+dbt build
+dbt docs generate
+dbt docs serve
+```
+</details>
+
+<details>
+<summary>POSIX PowerShell Core</summary>
+
+```shell
+git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
+cd jaffle_shop_duckdb
+python3 -m venv venv
+venv/bin/Activate.ps1
+venv/bin/python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+venv/bin/Activate.ps1
+dbt build
+dbt docs generate
+dbt docs serve
+```
+</details>
+
+<details>
+<summary>Windows cmd.exe</summary>
+
+```shell
+git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
+cd jaffle_shop_duckdb
+python -m venv venv
+venv\Scripts\activate.bat
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+venv\Scripts\activate.bat
+dbt build
+dbt docs generate
+dbt docs serve
+```
+</details>
+
+<details>
+<summary>Windows PowerShell</summary>
+
+```shell
+git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
+cd jaffle_shop_duckdb
+python -m venv venv
+venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+venv\Scripts\Activate.ps1
+dbt build
+dbt docs generate
+dbt docs serve
+```
+</details>
+
 
 Prerequisities: Python >= 3.5
+
+### Step-by-step explanation
 
 To get up and running with this project:
 
@@ -66,7 +175,7 @@ To get up and running with this project:
 
     Expand your shell below:
 
-    <details>
+    <details open>
     <summary>POSIX bash/zsh</summary>
 
     ```shell
@@ -247,7 +356,7 @@ To get up and running with this project:
     dbt docs serve
     ```
 
-### Running `build` steps independently
+## Running `build` steps independently
 
 1. Load the CSVs with the demo data set. This materializes the CSVs as tables in your target schema. Note that a typical dbt project **does not require this step** since dbt assumes your raw data is already in your warehouse.
     ```shell
@@ -266,13 +375,13 @@ To get up and running with this project:
     dbt test
     ```
 
-### Browsing the data
+## Browsing the data
 Some options:
 - [duckcli](https://pypi.org/project/duckcli/)
 - [DuckDB CLI](https://duckdb.org/docs/installation/?environment=cli)
 - [How to set up DBeaver SQL IDE for DuckDB](https://duckdb.org/docs/guides/sql_editors/dbeaver)
 
-#### Troubleshooting
+### Troubleshooting
 
 You may get an error like this, in which case you will need to disconnect from any sessions that are locking the database:
 ```
