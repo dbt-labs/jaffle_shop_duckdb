@@ -50,6 +50,7 @@ If you want an adrenaline rush from a process that used to take dbt newcomers `1
 [Verified GitHub Action on dbt Performance](https://github.com/dbt-labs/jaffle_shop_duckdb/runs/7141529753?check_suite_focus=true#step:4:306)
 
 ## Running this project
+Prerequisities: Python >= 3.5
 
 ### Mach Speed: No explanation needed
 
@@ -158,7 +159,6 @@ dbt docs serve
 </details>
 
 
-Prerequisities: Python >= 3.5
 
 ### Step-by-step explanation
 
