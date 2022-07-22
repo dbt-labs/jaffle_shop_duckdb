@@ -63,7 +63,7 @@ git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
 cd jaffle_shop_duckdb
 python3 -m venv venv
 source venv/bin/activate
-venv/bin/python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 source venv/bin/activate
 dbt build
@@ -80,7 +80,7 @@ git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
 cd jaffle_shop_duckdb
 python3 -m venv venv
 source venv/bin/activate.fish
-venv/bin/python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 source venv/bin/activate.fish
 dbt build
@@ -97,7 +97,7 @@ git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
 cd jaffle_shop_duckdb
 python3 -m venv venv
 source venv/bin/activate.csh
-venv/bin/python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 source venv/bin/activate.csh
 dbt build
@@ -114,7 +114,7 @@ git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
 cd jaffle_shop_duckdb
 python3 -m venv venv
 venv/bin/Activate.ps1
-venv/bin/python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 venv/bin/Activate.ps1
 dbt build
@@ -181,7 +181,7 @@ To get up and running with this project:
     ```shell
     python3 -m venv venv
     source venv/bin/activate
-    venv/bin/python3 -m pip install --upgrade pip
+    python3 -m pip install --upgrade pip
     python3 -m pip install -r requirements.txt
     source venv/bin/activate
     ```
@@ -193,7 +193,7 @@ To get up and running with this project:
     ```shell
     python3 -m venv venv
     source venv/bin/activate.fish
-    venv/bin/python3 -m pip install --upgrade pip
+    python3 -m pip install --upgrade pip
     python3 -m pip install -r requirements.txt
     source venv/bin/activate.fish
     ```
@@ -205,7 +205,7 @@ To get up and running with this project:
     ```shell
     python3 -m venv venv
     source venv/bin/activate.csh
-    venv/bin/python3 -m pip install --upgrade pip
+    python3 -m pip install --upgrade pip
     python3 -m pip install -r requirements.txt
     source venv/bin/activate.csh
     ```
@@ -217,7 +217,7 @@ To get up and running with this project:
     ```shell
     python3 -m venv venv
     venv/bin/Activate.ps1
-    venv/bin/python3 -m pip install --upgrade pip
+    python3 -m pip install --upgrade pip
     python3 -m pip install -r requirements.txt
     venv/bin/Activate.ps1
     ```
@@ -273,7 +273,7 @@ To get up and running with this project:
     ```shell
     $ python3 -m venv venv
     $ source venv/bin/activate
-    (venv) $ venv/bin/python3 -m pip install --upgrade pip
+    (venv) $ python3 -m pip install --upgrade pip
     (venv) $ python3 -m pip install -r requirements.txt
     ```
 
