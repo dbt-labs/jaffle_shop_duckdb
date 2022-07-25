@@ -66,17 +66,17 @@
         "bastienboutonnet.vscode-dbt",
         "dorzey.vscode-sqlfluff",
         "editorconfig.editorconfig",
-        // "innoverio.vscode-dbt-power-user",
+        "amodio.find-related",
+        "innoverio.vscode-dbt-power-user",
         "ms-azuretools.vscode-docker",
         "ms-python.python",
         "ms-python.vscode-pylance",
         "visualstudioexptteam.vscodeintellicode",
-        "eamodio.gitlens",
+        // "eamodio.gitlens",
         // "mtxr.sqltools-driver-pg",
         // "mtxr.sqltools",
-        "redhat.vscode-yaml",
         "samuelcolvin.jinjahtml"
     ],
     
-    // "remoteUser": "vscode"
+    "remoteUser": "vscode"
 }
