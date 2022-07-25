@@ -10,11 +10,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev
 
 COPY requirements.txt /tmp/pip-tmp/
-RUN pip3 --disable-pip-version-check --use-deprecated=legacy-resolver --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
-    && rm -rf /tmp/pip-tmp
-
-COPY install-dbt-duckdb.sh /tmp/odbc-installer/
-RUN chmod +x /tmp/odbc-installer/install-dbt-duckdb.sh
-RUN /tmp/odbc-installer/install-dbt-duckdb.sh
+RUN python3 -m venv venv && \
+    source venv/bin/activate && \
+    python3 -m pip install --upgrade pip && \
+    python3 -m pip --disable-pip-version-check --use-deprecated=legacy-resolver --no-cache-dir install -r /tmp/pip-tmp/requirements.txt
+RUN  rm -rf /tmp/pip-tmp
 
 ENV DBT_PROFILES_DIR=/dbt
