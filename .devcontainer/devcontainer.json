@@ -9,10 +9,58 @@
         "terminal.integrated.defaultProfile.linux#": "/bin/zsh",
         "python.languageServer": "Pylance",
         "files.associations": {
-            "*.sql": "jinja-sql"
+            "*.sql": "jinja-sql",
+            "*.sqlfluff": "ini",
+            "*.yml": "yaml",
+            "**/target/**": ""
         },
         "sql.linter.executablePath": "sqlfluff",
-        "sql.format.enable": false
+        "sql.format.enable": false,
+        "files.exclude": {
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/__pycache__": true
+          },
+          "findrelated.workspaceRulesets": [
+            {
+              "name": "sql",
+              "rules": [
+                {
+                  "pattern": "^(.*/)?models/(.*/)?(.+\\.sql)$",
+                  "locators": [
+                    "**/compiled/**/$3"
+                  ]
+                },
+                {
+                  "pattern": "^(.*/)?compiled/(.*/)?(.+\\.sql)$",
+                  "locators": [
+                    "**/run/**/$3"
+                  ]
+                },
+                {
+                  "pattern": "^(.*/)?run/(.*/)?(.+\\.sql)$",
+                  "locators": [
+                    "**/models/**/$3"
+                  ]
+                }
+              ]
+            }
+          ],
+          "findrelated.applyRulesets": [
+            "sql"
+          ],
+          "findrelated.applyWorkspaceRulesets": [
+            "sql"
+          ],
+          "workbench.editor.highlightModifiedTabs": true,
+          "workbench.editor.labelFormat": "medium",
+          "workbench.editor.revealIfOpen": true,
+          "editor.rulers": [
+            99
+          ],
     },
     "extensions": [
         "bastienboutonnet.vscode-dbt",
