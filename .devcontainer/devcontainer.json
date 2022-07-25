@@ -1,29 +1,16 @@
 // Update the VARIANT arg in docker-compose.yml to pick a Python version: 3, 3.8, 3.7, 3.6
 {
     "name": "dbt",
-    "dockerFile" : "../Dockerfile",
+    "dockerFile" : "Dockerfile",
     // "dockerComposeFile": "../docker-compose.yml",
     // "service": "dbt",
     // "workspaceFolder": "/dbt",
     "settings": {
-        "terminal.integrated.defaultProfile.linux#": "/bin/bash",
-        "python.pythonPath": "venv/bin/python",
+        "terminal.integrated.defaultProfile.linux#": "/bin/zsh",
         "python.languageServer": "Pylance",
         "files.associations": {
             "*.sql": "jinja-sql"
         },
-        // "sqltools.connections": [
-        //     {
-        //         "name": "Database",
-        //         "driver": "PostgreSQL",
-        //         "previewLimit": 50,
-        //         "server": "localhost",
-        //         "port": 5432,
-        //         "database": "postgres",
-        //         "username": "postgres",
-        //         "password": "postgres"
-        //     }
-        // ],
         "sql.linter.executablePath": "sqlfluff",
         "sql.format.enable": false
     },
@@ -43,5 +30,5 @@
         "samuelcolvin.jinjahtml"
     ],
     
-    "remoteUser": "vscode"
+    // "remoteUser": "vscode"
 }
