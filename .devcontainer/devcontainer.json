@@ -1,9 +1,10 @@
 // Update the VARIANT arg in docker-compose.yml to pick a Python version: 3, 3.8, 3.7, 3.6
 {
     "name": "dbt",
-    "dockerComposeFile": "../docker-compose.yml",
-    "service": "dbt",
-    "workspaceFolder": "/dbt",
+    "dockerFile" : "../Dockerfile",
+    // "dockerComposeFile": "../docker-compose.yml",
+    // "service": "dbt",
+    // "workspaceFolder": "/dbt",
     "settings": {
         "terminal.integrated.defaultProfile.linux#": "/bin/bash",
         "python.pythonPath": "venv/bin/python",
