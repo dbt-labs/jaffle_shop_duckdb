@@ -11,8 +11,9 @@
             "*.yml": "yaml",
             "**/target/**": ""
         },
-        "sql.linter.executablePath": "sqlfluff",
-        "sql.format.enable": false,
+        "sql.linter.executablePath": "/usr/local/bin/sqlfluff",
+        "sql.format.enable": true,
+        "sql.linter.run": "onType",
         "files.exclude": {
             "**/.git": true,
             "**/.svn": true,
