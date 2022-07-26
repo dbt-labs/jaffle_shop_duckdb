@@ -2,9 +2,6 @@
 {
     "name": "dbt",
     "dockerFile" : "Dockerfile",
-    // "dockerComposeFile": "../docker-compose.yml",
-    // "service": "dbt",
-    // "workspaceFolder": "/dbt",
     "settings": {
         "terminal.integrated.defaultProfile.linux#": "/bin/zsh",
         "python.languageServer": "Pylance",
@@ -72,9 +69,6 @@
         "ms-python.python",
         "ms-python.vscode-pylance",
         "visualstudioexptteam.vscodeintellicode",
-        // "eamodio.gitlens",
-        // "mtxr.sqltools-driver-pg",
-        // "mtxr.sqltools",
         "samuelcolvin.jinjahtml"
     ],
     
