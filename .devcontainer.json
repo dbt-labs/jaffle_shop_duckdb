@@ -3,8 +3,7 @@
     "name": "dbt",
     "dockerFile" : "Dockerfile",
     "settings": {
-        "terminal.integrated.defaultProfile.linux#": "/bin/zsh",
-        "python.languageServer": "Pylance",
+        "terminal.integrated.defaultProfile.linux#": "/bin/sh",
         "files.associations": {
             "*.sql": "jinja-sql",
             "*.sqlfluff": "ini",
