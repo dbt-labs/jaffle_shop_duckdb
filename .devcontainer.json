@@ -58,7 +58,7 @@
           "workbench.editor.revealIfOpen": true,
           "editor.rulers": [
             99
-          ],
+          ]
     },
     "extensions": [
         "bastienboutonnet.vscode-dbt",
