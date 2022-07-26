@@ -66,11 +66,8 @@
         "amodio.find-related",
         "ms-azuretools.vscode-docker",
         "ms-python.python",
-        "ms-python.vscode-pylance",
         "visualstudioexptteam.vscodeintellicode",
-        "samuelcolvin.jinjahtml",
-        "mechatroner.rainbow-csv",
-        "yzhang.markdown-all-in-one"
+        "samuelcolvin.jinjahtml"
     ],
     
     "remoteUser": "vscode"
