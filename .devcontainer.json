@@ -3,16 +3,16 @@
     "name": "dbt",
     "dockerFile" : "Dockerfile",
     "settings": {
-        "terminal.integrated.defaultProfile.linux#": "/bin/zsh",
-        "python.languageServer": "Pylance",
+        "terminal.integrated.defaultProfile.linux#": "/bin/sh",
         "files.associations": {
             "*.sql": "jinja-sql",
             "*.sqlfluff": "ini",
             "*.yml": "yaml",
             "**/target/**": ""
         },
-        "sql.linter.executablePath": "sqlfluff",
-        "sql.format.enable": false,
+        "sql.linter.executablePath": "/usr/local/bin/sqlfluff",
+        "sql.format.enable": true,
+        "sql.linter.run": "onType",
         "files.exclude": {
             "**/.git": true,
             "**/.svn": true,
@@ -57,7 +57,7 @@
           "workbench.editor.revealIfOpen": true,
           "editor.rulers": [
             99
-          ],
+          ]
     },
     "extensions": [
         "bastienboutonnet.vscode-dbt",
@@ -66,11 +66,8 @@
         "amodio.find-related",
         "ms-azuretools.vscode-docker",
         "ms-python.python",
-        "ms-python.vscode-pylance",
         "visualstudioexptteam.vscodeintellicode",
-        "samuelcolvin.jinjahtml",
-        "mechatroner.rainbow-csv",
-        "yzhang.markdown-all-in-one"
+        "samuelcolvin.jinjahtml"
     ],
     
     "remoteUser": "vscode"
