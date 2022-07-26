@@ -69,7 +69,9 @@
         "ms-python.python",
         "ms-python.vscode-pylance",
         "visualstudioexptteam.vscodeintellicode",
-        "samuelcolvin.jinjahtml"
+        "samuelcolvin.jinjahtml",
+        "mechatroner.rainbow-csv",
+        "yzhang.markdown-all-in-one"
     ],
     
     "remoteUser": "vscode"
