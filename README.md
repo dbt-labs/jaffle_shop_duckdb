@@ -158,7 +158,46 @@ dbt docs serve
 ```
 </details>
 
+<details>
+<summary>GitHub Codespaces / Dev Containers </summary>
 
+#### Steps
+
+1. Ensure you have Codespaces enabled for your GitHub organization or turned on as a beta feature if you're an individual user
+2. Click the green **Code** button on near the top right of the page of this repo's homepage (you may already be on it)
+3. Instead of cloning the repo like you normally would, intead select the **Codespaces** tab of the pop out, then "Create codespace on `duckdb`" (`duckdb` happens to be the main branch, else if #29 is not yet merged make a codespace on the `add_codespace` branch)
+   ![dbt_full_deploy_commands](images/open_in_codespaces.png)
+4. Wait for codespace to boot (~1 min?)
+5. Decide whether you'd like to use the Web IDE or open the codespace in your local environment
+6. When the codespace opens, a Task pane will show up and call `dbt build` just to show you how it's done
+7. Decide whether or not you'd like the **dbt Power User extension** installed
+8. Open up a new terminal and type `dbt build`!
+9. Explore some of the bells and whistles (see below)
+
+If you don't have Codespaces or would like to just run the environment in a local Docker container, you can by:
+1. Having Docker Desktop installed
+2. Install the "Remote - Containers" extension"
+2. Clone the repo and open it in VSCode
+3. Click **Reopen in Container** and wait for container to spin up
+   ![Reopen in Container](https://user-images.githubusercontent.com/8158673/181360469-c6f3eb94-6b65-4a8f-93a0-3438d182ee66.png)
+4. Continue from step 6 above
+
+
+#### bells and whistles
+
+There's some bells and whistles defined in the [.devcontainer.json]().devcontainer.json) that are worth calling out. Also a great reference is the [Setting up VSCode for dbt](https://dbt-msft.github.io/dbt-msft-docs/docs/guides/vscode_setup/) guide.
+
+1. there is syntax highlighting provided by the `vdcode-dbt` extension. However, it is configured such that files in your `target/run` and `target/compiled` folder are not syntax highlighted, as a reminder that these files are not where you should be making changes!
+2. basic `sqlfluff` linting is enabled as you type. Syntax errors will be underlined in red at the error, and will also be surfaced in the **Problems** tab of the Terminal pane. It's configured to lint as you type.
+3. Autocompletion is enabled for generic dbt macros via the `vdcode-dbt` extension. For example, if you type `macro` you'll notice a pop up that you can select with the arrow keys then click tab to get a macro snippet.
+  ![image](https://user-images.githubusercontent.com/8158673/181362230-2c00d666-6131-4619-93aa-2e30d9c2bfea.png)
+  ![image](https://user-images.githubusercontent.com/8158673/181362274-fa7d71ff-07fc-4b4a-97c3-a0464fbe4c7d.png)
+4. the `find-related` extension allows an easy shortcut to navigating using `CMD`+`R`to jump from
+    - a model file to it's corresponding compiled version,
+    - from a compiled file to either the original model file or the version in `target/run`
+
+
+</details>
 
 ### Step-by-step explanation
 
@@ -247,6 +286,8 @@ To get up and running with this project:
     ```
     </details>
 
+
+  
     *Why a 2nd activation of the virtual environment?*
     <details>
     <summary>This may not be necessary for many users, but might be for some. Read on for a first-person report from @dbeatty10.</summary>
@@ -391,6 +432,13 @@ IO Error: Could not set lock on file "jaffle_shop.duckdb": Resource temporarily 
 This is a known issue in DuckDB. If you are using DBeaver, this means shutting down DBeaver (merely disconnecting didn't work for me).
 
 Very worst-case, deleting the database file will get you back in action (BUT you will lose all your data).
+
+
+#### GitHub Codespaces and VSCode Remote Container
+
+If you're using a privacy-forward browser such as Firefox and Braze, or a tracking-cookie-blocking extension like UBlock Origin or Privacy Badger, you may see the below error. You can either change your cookie settings, use a browser like Chrome, or just ignore the error because it doesn't affect the demo
+
+![image](https://user-images.githubusercontent.com/8158673/181361459-294f807c-d990-4366-a4ab-d91cefcbc820.png)
 
 ---
 For more information on dbt:
