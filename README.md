@@ -436,7 +436,7 @@ Very worst-case, deleting the database file will get you back in action (BUT you
 
 #### GitHub Codespaces and VSCode Remote Container
 
-If you're using a privacy-forward browser such as Firefox and Braze, or a tracking-cookie-blocking extension like UBlock Origin or Privacy Badger, you may see the below error. You can either change your cookie settings, use a browser like Chrome, or just ignore the error because it doesn't affect the demo
+If you're using a privacy-forward browser such as Firefox and Brave, or a tracking-cookie-blocking extension like UBlock Origin or Privacy Badger, you may see the below error. You can either change your cookie settings, use a browser like Chrome, or just ignore the error because it doesn't affect the demo
 
 ![image](https://user-images.githubusercontent.com/8158673/181361459-294f807c-d990-4366-a4ab-d91cefcbc820.png)
 
