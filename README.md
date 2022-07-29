@@ -67,6 +67,8 @@ source venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt -r dev-requirements.txt
 source venv/bin/activate
+pre-commit run --all-files
+pre-commit run --files models/staging/*
 dbt build
 dbt docs generate
 dbt docs serve
@@ -82,8 +84,10 @@ cd jaffle_shop_duckdb
 python3 -m venv venv
 source venv/bin/activate.fish
 python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt -r dev-requirements.txt
 source venv/bin/activate.fish
+pre-commit run --all-files
+pre-commit run --files models/staging/*
 dbt build
 dbt docs generate
 dbt docs serve
@@ -99,8 +103,10 @@ cd jaffle_shop_duckdb
 python3 -m venv venv
 source venv/bin/activate.csh
 python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt -r dev-requirements.txt
 source venv/bin/activate.csh
+pre-commit run --all-files
+pre-commit run --files models/staging/*
 dbt build
 dbt docs generate
 dbt docs serve
@@ -116,8 +122,10 @@ cd jaffle_shop_duckdb
 python3 -m venv venv
 venv/bin/Activate.ps1
 python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt -r dev-requirements.txt
 venv/bin/Activate.ps1
+pre-commit run --all-files
+pre-commit run --files models/staging/*
 dbt build
 dbt docs generate
 dbt docs serve
@@ -135,6 +143,8 @@ venv\Scripts\activate.bat
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 venv\Scripts\activate.bat
+pre-commit run --all-files
+pre-commit run --files models/staging/*
 dbt build
 dbt docs generate
 dbt docs serve
@@ -152,6 +162,8 @@ venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 venv\Scripts\Activate.ps1
+pre-commit run --all-files
+pre-commit run --files models/staging/*
 dbt build
 dbt docs generate
 dbt docs serve
@@ -221,7 +233,7 @@ To get up and running with this project:
     python3 -m venv venv
     source venv/bin/activate
     python3 -m pip install --upgrade pip
-    python3 -m pip install -r requirements.txt
+    python3 -m pip install -r requirements.txt -r dev-requirements.txt
     source venv/bin/activate
     ```
     </details>
@@ -233,7 +245,7 @@ To get up and running with this project:
     python3 -m venv venv
     source venv/bin/activate.fish
     python3 -m pip install --upgrade pip
-    python3 -m pip install -r requirements.txt
+    python3 -m pip install -r requirements.txt -r dev-requirements.txt
     source venv/bin/activate.fish
     ```
     </details>
@@ -245,7 +257,7 @@ To get up and running with this project:
     python3 -m venv venv
     source venv/bin/activate.csh
     python3 -m pip install --upgrade pip
-    python3 -m pip install -r requirements.txt
+    python3 -m pip install -r requirements.txt -r dev-requirements.txt
     source venv/bin/activate.csh
     ```
     </details>
@@ -257,7 +269,7 @@ To get up and running with this project:
     python3 -m venv venv
     venv/bin/Activate.ps1
     python3 -m pip install --upgrade pip
-    python3 -m pip install -r requirements.txt
+    python3 -m pip install -r requirements.txt -r dev-requirements.txt
     venv/bin/Activate.ps1
     ```
     </details>
@@ -315,7 +327,7 @@ To get up and running with this project:
     $ python3 -m venv venv
     $ source venv/bin/activate
     (venv) $ python3 -m pip install --upgrade pip
-    (venv) $ python3 -m pip install -r requirements.txt
+    (venv) $ python3 -m pip install -r requirements.txt -r dev-requirements.txt
     ```
 
     Let's examine where `dbt` is installed and which version it is reporting:
