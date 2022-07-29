@@ -65,7 +65,7 @@ cd jaffle_shop_duckdb
 python3 -m venv venv
 source venv/bin/activate
 python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt -r dev-requirements.txt
 source venv/bin/activate
 dbt build
 dbt docs generate
