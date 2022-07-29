@@ -3,7 +3,7 @@ name: pre-commit-check
 on:
   pull_request:
     branches: 
-      - main
+      - duckdb
 
 jobs:
   pre-commit-pip:
