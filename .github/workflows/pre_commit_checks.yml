@@ -1,0 +1,63 @@
+name: pre-commit-check
+
+on:
+  pull_request:
+    branches: 
+      - main
+
+jobs:
+  pre-commit-pip:
+    name: Install pre-commit via pip
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest']
+        python-version: [3.8]
+
+    steps:
+
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+    # Using bash and pip to install dbt and pre-commit
+    # Update the dbt installation command to include the adapter you need
+      - name: Install dbt and pre-commit
+        shell: bash -l {0}
+        run: |
+          python3 -m pip install -r requirements.txt -r dev-requirements.txt
+
+
+    # This action will output all the files that are being created and modified in our PR
+      - name: Get changed files
+        id: get_file_changes
+        uses: trilom/file-changes-action@v1.2.4
+        with:
+          output: ' '
+
+    # Transforming the output of get_file_changes to a string we can use for our next step
+    # We want to take in account both new files and files that have been modified
+      - name: Get changed .sql files in /models to lint
+        id: get_files_to_lint
+        shell: bash -l {0}
+        run: |
+          # Set the command in the $() brackets as an output to use in later steps
+          echo "::set-output name=files::$(
+          # Issue where grep regular expressions don't work as expected on the
+          # Github Actions shell, check dbt/models/ folder
+          echo \
+          $(echo ${{ steps.get_file_changes.outputs.files_modified }} |
+          tr -s ' ' '\n' |
+          grep -E '^models.*[.]sql$' |
+          tr -s '\n' ' ') \
+          $(echo ${{ steps.get_file_changes.outputs.files_added }} |
+          tr -s ' ' '\n' |
+          grep -E '^models.*[.]sql$' |
+          tr -s '\n' ' ')
+          )"
+
+    # Finally run pre-commit
+      - name: Run pre-commit
+        shell: bash -l {0}
+        run: |
+          pre-commit run --files ${{ steps.get_files_to_lint.outputs.files }}
