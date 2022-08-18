@@ -195,6 +195,12 @@ There's some bells and whistles defined in the [.devcontainer.json]().devcontain
 4. the `find-related` extension allows an easy shortcut to navigating using `CMD`+`R`to jump from
     - a model file to it's corresponding compiled version,
     - from a compiled file to either the original model file or the version in `target/run`
+5. The `vscode-yaml` YAML, combined with the JSON schema defined in [dbt-labs/dbt-jsonschema](https://github.com/dbt-labs/dbt-jsonschema), autocomplete options while working with dbt's YAML files: i.e. :
+    - Project definition files (`dbt_project.yml`)
+    - Package files (`packages.yml`)
+    - Selectors files (`selectors.yml`)
+    - Property files (`models/whatever.yml`)
+
 
 
 </details>
