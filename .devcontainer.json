@@ -57,7 +57,26 @@
           "workbench.editor.revealIfOpen": true,
           "editor.rulers": [
             99
-          ]
+          ],
+          "yaml.schemas": {
+            "https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/dbt_yml_files.json": [
+                "/*.yml",
+                "!profiles.yml",
+                "!dbt_project.yml",
+                "!packages.yml",
+                "!selectors.yml",
+                "!profile_template.yml"
+            ],
+            "https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/dbt_project.json": [
+                "dbt_project.yml"
+            ],
+            "https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/selectors.json": [
+                "selectors.yml"
+            ],
+            "https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/packages.json": [
+                "packages.yml"
+            ]
+        }
     },
     "extensions": [
         "bastienboutonnet.vscode-dbt",
@@ -67,7 +86,8 @@
         "ms-azuretools.vscode-docker",
         "ms-python.python",
         "visualstudioexptteam.vscodeintellicode",
-        "samuelcolvin.jinjahtml"
+        "samuelcolvin.jinjahtml",
+        "redhat.vscode-yaml"
     ],
     
     "remoteUser": "vscode"
