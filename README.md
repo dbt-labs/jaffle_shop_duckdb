@@ -163,24 +163,30 @@ dbt docs serve
 
 #### Steps
 
-1. Ensure you have Codespaces enabled for your GitHub organization or turned on as a beta feature if you're an individual user
+1. Ensure you have [Codespaces](https://github.com/features/codespaces) enabled for your GitHub organization or turned on as a beta feature if you're an individual user
 2. Click the green **Code** button on near the top right of the page of this repo's homepage (you may already be on it)
-3. Instead of cloning the repo like you normally would, intead select the **Codespaces** tab of the pop out, then "Create codespace on `duckdb`"
+3. Instead of cloning the repo like you normally would, instead select the **Codespaces** tab of the pop out, then "Create codespace on `duckdb`"
    ![dbt_full_deploy_commands](images/open_in_codespaces.png)
 4. Wait for codespace to boot (~1 min?)
 5. Decide whether you'd like to use the Web IDE or open the codespace in your local environment
 6. When the codespace opens, a Task pane will show up and call `dbt build` just to show you how it's done
-7. Decide whether or not you'd like the **dbt Power User extension** installed
-8. Open up a new terminal and type `dbt build`!
+7. Decide whether or not you'd like the recommended extensions installed (like **dbt Power User extension**)
+8. Open up a new terminal and type:
+    ```
+    dbt build
+    ```
 9. Explore some of the bells and whistles (see below)
 
 If you don't have Codespaces or would like to just run the environment in a local Docker container, you can by:
-1. Having Docker Desktop installed
-2. Install the "Remote - Containers" extension"
-2. Clone the repo and open it in VSCode
-3. Click **Reopen in Container** and wait for container to spin up
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+2. Install the VSCode [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension (formerly known as the "Remote - Containers" extension). Video tutorial [here](https://learn.microsoft.com/en-us/shows/beginners-series-to-dev-containers/installing-the-remote-containers-extension-2-of-8--beginners-series-to-dev-containers).
+2. Clone this repo and open it in VSCode
+1. First time: View > Command Palette > Remote-Containers: Open Folder in Container
+    - Wait for container to build -- expected to take several minutes
+    - Open a new terminal
+3. Subsequent times: Click **Reopen in Container** and wait for container to spin up
    ![Reopen in Container](https://user-images.githubusercontent.com/8158673/181360469-c6f3eb94-6b65-4a8f-93a0-3438d182ee66.png)
-4. Continue from step 6 above
+1. Continue on step 7 above
 
 
 #### bells and whistles
