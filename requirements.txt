@@ -1,5 +1,5 @@
-# The only version that works currently
-duckcli==0.0.1
+# 3rd party CLI for DuckDB
+duckcli>=0.2.1
 
 # Database adapter
 dbt-duckdb>=1.2.0
