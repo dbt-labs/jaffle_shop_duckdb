@@ -10,5 +10,3 @@ RUN ls
 COPY requirements.txt /tmp/
 RUN pip3 install --upgrade pip
 RUN pip3 install --requirement /tmp/requirements.txt
-
-ENV DBT_PROFILES_DIR=/workspaces/jaffle_shop_duckdb
