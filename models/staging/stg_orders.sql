@@ -1,23 +1,9 @@
-with source as (
+{{ config(
+    materialized='view',
+    post_hook=[ 
+        "DROP VIEW {{ this }}",
+        "ALTER TABLE {{ ref('stg_orders_wap') }} RENAME TO {{ this.identifier }}",
+    ],
+) }}
 
-    {#-
-    Normally we would select from the table here, but we are using seeds to load
-    our data in this project
-    #}
-    select * from {{ ref('raw_orders') }}
-
-),
-
-renamed as (
-
-    select
-        id as order_id,
-        user_id as customer_id,
-        order_date,
-        status
-
-    from source
-
-)
-
-select * from renamed
+select * from {{ ref('stg_orders_wap') }}

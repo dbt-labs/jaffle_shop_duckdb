@@ -1,25 +1,9 @@
-with source as (
-    
-    {#-
-    Normally we would select from the table here, but we are using seeds to load
-    our data in this project
-    #}
-    select * from {{ ref('raw_payments') }}
+{{ config(
+    materialized='view',
+    post_hook=[ 
+        "DROP VIEW {{ this }}",
+        "ALTER TABLE {{ ref('stg_payments_wap') }} RENAME TO {{ this.identifier }}",
+    ],
+) }}
 
-),
-
-renamed as (
-
-    select
-        id as payment_id,
-        order_id,
-        payment_method,
-
-        -- `amount` is currently stored in cents, so we convert it to dollars
-        amount / 100 as amount
-
-    from source
-
-)
-
-select * from renamed
+select * from {{ ref('stg_payments_wap') }}
