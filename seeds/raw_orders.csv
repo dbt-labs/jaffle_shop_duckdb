@@ -1,5 +1,5 @@
 id,user_id,order_date,status
-,1,2018-01-01,returned
+1,1,2018-01-01,returned
 2,3,2018-01-02,completed
 3,94,2018-01-04,completed
 4,50,2018-01-05,completed

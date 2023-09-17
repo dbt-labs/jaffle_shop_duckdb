@@ -1,5 +1,13 @@
 version: 2
 
+groups:
+  - name: mart
+    owner:
+      # 'name' or 'email' is required; additional properties allowed
+      email: finance@jaffleshop.com
+      slack: finance-data
+      github: finance-data-team
+
 models:
   - name: customers
     description: This table has basic information about a customer, as well as some derived facts based on a customer's orders

@@ -1,7 +1,16 @@
 version: 2
 
+groups:
+  - name: staging
+    owner:
+      # 'name' or 'email' is required; additional properties allowed
+      email: finance@jaffleshop.com
+      slack: finance-data
+      github: finance-data-team
+
 models:
   - name: stg_customers_wap
+    access: private
     columns:
       - name: customer_id
         tests:
@@ -9,6 +18,7 @@ models:
           - not_null
 
   - name: stg_orders_wap
+    access: private
     columns:
       - name: order_id
         tests:
@@ -20,6 +30,7 @@ models:
               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
 
   - name: stg_payments_wap
+    access: private
     columns:
       - name: payment_id
         tests:

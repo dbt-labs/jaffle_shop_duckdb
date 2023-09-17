@@ -27,7 +27,15 @@ models:
   jaffle_shop:
     materialized: table
     staging:
+      +group: staging
       +docs:
         node_color: 'silver'
-    +docs:
-      node_color: 'gold'
+      publish:
+        +materialized: view
+        +post_hook: [ 
+            "DROP VIEW {{ this }}",
+            "ALTER TABLE {{this.schema}}.{{this.identifier}}_wap RENAME TO {{ this.identifier }}",
+          ]
+    mart:
+      +docs:
+        node_color: 'gold'
