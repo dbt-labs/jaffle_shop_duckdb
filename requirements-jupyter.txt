@@ -1,3 +1,0 @@
-ipykernel
-jupysql
-duckdb-engine
