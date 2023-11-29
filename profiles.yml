@@ -12,3 +12,13 @@ jaffle_shop:
       path: 'jaffle_shop.duckdb'
       threads: 24
       schema: prod
+    motherDuck:
+      type: duckdb
+      path: "md:jaffle_shop?motherduck_token={{env_var('motherduck_token')}}"
+      threads: 24
+      schema: dev
+    motherDuckProd:
+      type: duckdb
+      path: "md:jaffle_shop?motherduck_token={{env_var('motherduck_token')}}"
+      threads: 24
+      schema: prod
