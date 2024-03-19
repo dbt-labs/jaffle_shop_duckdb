@@ -1,0 +1,11 @@
+image:
+  file: .gitpod.Dockerfile
+
+vscode:
+  extensions:
+    - samuelcolvin.jinjahtml
+    - ms-python.python
+    - innoverio.vscode-dbt-power-user
+
+tasks:
+  - init: pip install -r requirements.txt
