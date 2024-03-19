@@ -27,5 +27,5 @@ RUN echo "export DATABASE_URL" >> $HOME/.bashrc
 RUN pip3 install toml
 
 # Install requirements - needed for debugging/running extension
-COPY ./vscode-setup/requirements.txt /tmp/
+COPY ./requirements.txt /tmp/
 RUN python3 -m pip install --requirement /tmp/requirements.txt
