@@ -5,6 +5,7 @@ on:
     branches: 
       - main
       - tims-private-branch
+      - duckdb
 
 jobs:
   pre-commit-pip:
