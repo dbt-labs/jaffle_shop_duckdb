@@ -214,3 +214,4 @@ zipp==3.17.0
     # via
     #   importlib-metadata
     #   importlib-resources
+pre-commit

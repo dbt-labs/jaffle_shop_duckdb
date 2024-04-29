@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/offbi/pre-commit-dbt
+    rev: v1.0.0
+    hooks:
+      - id: dbt-docs-generate
+        entry: ./venv/bin/dbt docs generate
+      - id: check-model-has-properties-file
+        name: Check that all models are listed in a YAML file
+        files: ^models/
+      - id: check-model-has-tests
+        name: Check that all models have tests
+        files: ^models/
