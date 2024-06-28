@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install recce
+          pip install recce-nightly
       - name: Prepare dbt Base environment
         run: |
           gh repo set-default ${{ github.repository }}
@@ -45,6 +45,8 @@ jobs:
       - name: Run Recce CI
         run: |
           recce run --cloud --cloud-token ${{ secrets.RECCE_CLOUD_TOKEN }}
+        env:
+          RECCE_STATE_PASSWORD: ${{ vars.RECCE_STATE_PASSWORD}}
 
       - name: Upload DBT Artifacts
         uses: actions/upload-artifact@v4
@@ -77,11 +79,12 @@ jobs:
 
         env:
           ARTIFACT_URL: ${{ steps.recce-artifact-uploader.outputs.artifact-url }}
+          RECCE_STATE_PASSWORD: ${{ vars.RECCE_STATE_PASSWORD}}
           NEXT_STEP_MESSAGE: |
             ### How to check the recce result
             ```bash
             # Launch the recce server based on the state file
-            recce server --review --cloud
+            recce server --review --cloud --password ${{ vars.RECCE_STATE_PASSWORD}}
 
             # Open the recce server http://localhost:8000 by your browser
             ```
