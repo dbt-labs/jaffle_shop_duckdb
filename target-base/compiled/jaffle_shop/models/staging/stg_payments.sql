@@ -1,10 +1,5 @@
 with source as (
-    
-    {#-
-    Normally we would select from the table here, but we are using seeds to load
-    our data in this project
-    #}
-    select * from {{ ref('raw_payments') }}
+    select * from "jaffle_shop"."prod"."raw_payments"
 
 ),
 
@@ -16,7 +11,7 @@ renamed as (
         payment_method,
 
         -- `amount` is currently stored in cents, so we convert it to dollars
-        amount
+        amount / 100 as amount
 
     from source
 

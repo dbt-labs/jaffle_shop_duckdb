@@ -1,0 +1,11 @@
+checks:
+  - name: Examine the Schema Diff
+    description: >
+      Controleer of er wijzigingen zijn in het schema van de modellen.
+    type: schema_diff  # Zorg dat dit type correct is gedefinieerd
+    params:
+      select: state:modified
+  - name: Basic Check
+    type: row_count_diff  # Een type dat je zeker weet dat het werkt
+    params:
+      select: state:modified
