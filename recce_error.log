@@ -1,0 +1,4 @@
+# Recce Runc Failed Checks
+|    Name   |     Type     |Kind of Failed|                                                   Failed Reason                                                  |
+|-----------|--------------|--------------|------------------------------------------------------------------------------------------------------------------|
+|Basic Check|row_count_diff|    failed    |Database Error   002003 (02000): SQL compilation error:   Database 'JAFFLE_SHOP' does not exist or not authorized.|
