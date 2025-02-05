@@ -385,7 +385,7 @@ To get up and running with this project:
 
     Launch a DuckDB command-line interface (CLI):
     ```shell
-    duckcli jaffle_shop.duckdb
+    duckdb jaffle_shop.duckdb
     ```
 
     Run a query at the prompt and exit:
@@ -396,11 +396,11 @@ To get up and running with this project:
 
     Alternatively, use a single-liner to perform the query:
     ```shell
-    duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
+    duckdb jaffle_shop.duckdb -c "select * from customers where customer_id = 42"
     ```
     or:
     ```shell
-    echo 'select * from customers where customer_id = 42' | duckcli jaffle_shop.duckdb
+    echo 'select * from customers where customer_id = 42' | duckdb jaffle_shop.duckdb
     ```
 
 1. Generate and view the documentation for the project:
