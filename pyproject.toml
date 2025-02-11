@@ -1,0 +1,22 @@
+[project]
+name = "jaffle-shop-duckdb"
+version = "0.1.0"
+description = "visivo integrated dbt jaffle shop"
+authors = [
+    {name = "jpjsonic",email = "jpjsonic@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = "<3.13,>=3.10"
+dependencies = [
+    "duckcli (>=0.2.1,<0.3.0)",
+    "dbt-duckdb (>=1.9.1,<2.0.0)",
+    "dbt-core (>=1.9.2,<2.0.0)",
+    "sqlfluff (>=3.3.1,<4.0.0)",
+    "visivo (>=1.0.50,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

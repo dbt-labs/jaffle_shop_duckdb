@@ -1,0 +1,44 @@
+path: project
+name: jaffle_shop
+defaults:
+  source_name: jaffle_shop_duckdb
+  threads: 8
+  thumbnail_mode: missing
+  levels: []
+
+dbt: 
+  enable: true
+  output_file: target/dbt.yml
+
+includes: []
+destinations: []
+alerts: []
+sources:
+  - name: jaffle_shop_duckdb
+    database: jaffle_shop.duckdb
+    type: duckdb
+    connection_pool_size: 6
+
+models: []
+traces: []
+tables: []
+charts: []
+selectors: []
+dashboards:
+  - name: Example Dashboard
+    tags: []
+    rows:
+      - height: medium
+        items:
+          - width: 1
+            chart:
+              name: Example Chart
+              traces:
+                - name: Example Trace
+                  model: ${ ref(orders) }
+                  props:
+                    type: scatter
+                    x: query( date_trunc('week', order_date)::varchar )
+                    y: query( count(distinct order_id) )
+                  order_by:
+                    - query( date_trunc('week', order_date)::varchar asc )
