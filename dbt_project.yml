@@ -23,12 +23,18 @@ seeds:
   +docs:
     node_color: '#cd7f32'
 
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['dbt_project_evaluator', 'dbt', 'spark_utils', 'dbt_utils']
+
 models:
   jaffle_shop:
+    +store_failures: true
     materialized: table
     staging:
       materialized: view
       +docs:
         node_color: 'silver'
     +docs:
-      node_color: 'gold'
+      node_color: 'gold' 
+    

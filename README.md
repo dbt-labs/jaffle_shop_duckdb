@@ -10,14 +10,9 @@
 </summary>
 
 What this repo _is_:
-- A self-contained playground dbt project, useful for testing out scripts, and communicating some of the core dbt concepts.
+- A self-contained playground dbt project, used for communicating some of the core dbt concepts and providing an opportunity for learners to familiarise themselves with dbt development.
 
 What this repo _is not_:
-- A tutorial — check out the [Getting Started Tutorial](https://docs.getdbt.com/tutorial/setting-up) for that. Notably, this repo contains some anti-patterns to make it self-contained, namely the use of seeds instead of sources.
-- A demonstration of best practices — check out the [dbt Learn Demo](https://github.com/dbt-labs/dbt-learn-demo) repo instead. We want to keep this project as simple as possible. As such, we chose not to implement:
-    - our standard file naming patterns (which make more sense on larger projects, rather than this five-model project)
-    - a pull request flow
-    - CI/CD integrations
 - A demonstration of using dbt for a high-complex project, or a demo of advanced features (e.g. macros, packages, hooks, operations) — we're just trying to keep things simple here!
 
 </details>
@@ -73,121 +68,54 @@ dbt docs serve
 ```
 </details>
 
-<details>
-<summary>POSIX fish</summary>
+### dbt Certification Exercise
+To give you a feel for dbt development there are a couple of things in this repository which do not match conventions laid out in the Learnster dbt course so far which need to be fixed, and there is also a simple model which needs to be created from scratch. 
 
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python3 -m venv venv
-source venv/bin/activate.fish
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-source venv/bin/activate.fish
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>POSIX csh/tcsh</summary>
-
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python3 -m venv venv
-source venv/bin/activate.csh
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-source venv/bin/activate.csh
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>POSIX PowerShell Core</summary>
-
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python3 -m venv venv
-venv/bin/Activate.ps1
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-venv/bin/Activate.ps1
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>Windows cmd.exe</summary>
-
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python -m venv venv
-venv\Scripts\activate.bat
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-venv\Scripts\activate.bat
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>Windows PowerShell</summary>
-
-```shell
-git clone https://github.com/dbt-labs/jaffle_shop_duckdb.git
-cd jaffle_shop_duckdb
-python -m venv venv
-venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-venv\Scripts\Activate.ps1
-dbt build
-dbt docs generate
-dbt docs serve
-```
-</details>
-
-<details>
-<summary>GitHub Codespaces / Dev Containers </summary>
-
-#### Steps
-
-1. Ensure you have [Codespaces](https://github.com/features/codespaces) enabled for your GitHub organization or turned on as a beta feature if you're an individual user
-2. Click the green **Code** button on near the top right of the page of this repo's homepage (you may already be on it)
-3. Instead of cloning the repo like you normally would, instead select the **Codespaces** tab of the pop out, then "Create codespace on `duckdb`"
-   ![dbt_full_deploy_commands](images/open_in_codespaces.png)
-4. Wait for codespace to boot (~1 min?)
-5. Decide whether you'd like to use the Web IDE or open the codespace in your local environment
-6. When the codespace opens, a Task pane will show up and call `dbt build` just to show you how it's done
-7. Decide whether or not you'd like the recommended extensions installed (like **dbt Power User extension**)
-8. Open up a new terminal and type:
+1) All `.yml` files should be renamed to specify what they apply to. For example each model directory should contain a `_models.yml` file (the `_` is to ensure the file is top of the directory for easy access) and may or may not contain a `_docs.yml` file for documentation.
+2) stg_customers contains PII data in the `first_name` and `last_name` columns so these need to be hashed. Firstly, append `_pii` suffix to model file and mark the model and each of the sensitive columns as sensitive in the `staging/_models.yml` using the syntax:
     ```
-    dbt build
+    models:
+      - name: stg_customers_pii
+        meta:
+          owner: 'example.email@krakentech.com'
+          sensitive: true
+        description: |
+          Table description
+        columns:
+          - name: customer_id
+            data-tests:
+              - unique
+              - not_null
+          - name: first_name
+            meta:
+              sensitive: true
+          - name: last_name
+            meta:
+              sensitive: true
     ```
-9. Explore some of the bells and whistles (see below)
+   
+   Now, create a second view in the staging layer using macro `{{ hash_sensitive_columns }}` that selects from the _pii model. This should follow typical staging layer naming convention. Every sensitive column that was hashed in this layer should have dbt_expectations.expect_column_to_exist test added.
 
-If you don't have Codespaces or would like to just run the environment in a local Docker container, you can by:
-1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-2. Install the VSCode [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension (formerly known as the "Remote - Containers" extension). Video tutorial [here](https://learn.microsoft.com/en-us/shows/beginners-series-to-dev-containers/installing-the-remote-containers-extension-2-of-8--beginners-series-to-dev-containers).
-2. Clone this repo and open it in VSCode
-1. First time: View > Command Palette > Remote-Containers: Open Folder in Container
-    - Wait for container to build -- expected to take several minutes
-    - Open a new terminal
-3. Subsequent times: Click **Reopen in Container** and wait for container to spin up
-   ![Reopen in Container](https://user-images.githubusercontent.com/8158673/181360469-c6f3eb94-6b65-4a8f-93a0-3438d182ee66.png)
-1. Continue on step 7 above
+   You can refer to [Personal Data](https://www.notion.so/kraken-tech/Personal-Data-13b73c742c7180b098eeffb0c655ddf7) doc for further information on handling PII.
+3) The `customers.sql` and `orders.sql` models are classic semantic layer models and should be in `dimensions` and `facts` directories respectively with their `_docs.md` and `_models.yml` files.
+4) We use a package to test the structure of the dbt project called [dbt_project_evaluator](https://github.com/dbt-labs/dbt-project-evaluator) - this tests for lineage issues. One of its major checks is to see if staging models refer to other staging models which is normally not allowed. 
+ 
+   However, we need to do this when hashing sensitive models so we need to make an exception. To do this, create a new seed called `dbt_project_evaluator_exceptions.csv` with the following content:
+   ```
+   fct_name,column_name,id_to_exclude,comment
+   fct_staging_dependent_on_staging,parent,stg_customers_pii,Scrubbing pii permitted in staging layer.
+   ```
+   This will disable the `fct_staging_dependent_on_staging` test for the `stg_customers_pii` where it is the parent of another staging model and give a reason for why its been omitted: `Scrubbing pii permitted in staging layer.`
+5) Create two final reporting models, these should be stored in a `reports` folder along with a `_models.yml` file: 
+- a finance model which calculates the total value of orders returned by customer
+- a sales models which provides the customer count by month for customers making their first order
+6) Last but not least – if you haven't already – make sure to play around with running some dbt commands! We recommend at least trying:
+- `dbt compile -s customers`
+- `dbt build`
+- `dbt docs generate`
+- `dbt docs serve`
 
+Once you are happy with your PR you can link it in the Learnster assignment and alert the Analytics Engineering team to review it in #team-analytics-engineering-requests Slack channel. Since this is a toy project PRs won't be merged but you will receive feedback on your work.
 
 #### bells and whistles
 
