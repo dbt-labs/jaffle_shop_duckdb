@@ -83,7 +83,7 @@ To give you a feel for dbt development there are a couple of things in this repo
           Table description
         columns:
           - name: customer_id
-            tests:
+            data-tests:
               - unique
               - not_null
           - name: first_name
@@ -94,7 +94,7 @@ To give you a feel for dbt development there are a couple of things in this repo
               sensitive: true
     ```
    
-   Now, create a second view in the staging layer using macro {{ hash_sensitive_columns }} that selects from the _pii model. This should follow typical staging layer naming convention. Every sensitive column that was hashed in this layer should have dbt_expectations.expect_column_to_exist test added.
+   Now, create a second view in the staging layer using macro `{{ hash_sensitive_columns }}` that selects from the _pii model. This should follow typical staging layer naming convention. Every sensitive column that was hashed in this layer should have dbt_expectations.expect_column_to_exist test added.
 
    You can refer to [Personal Data](https://www.notion.so/kraken-tech/Personal-Data-13b73c742c7180b098eeffb0c655ddf7) doc for further information on handling PII.
 3) The `customers.sql` and `orders.sql` models are classic semantic layer models and should be in `dimensions` and `facts` directories respectively with their `_docs.md` and `_models.yml` files.
