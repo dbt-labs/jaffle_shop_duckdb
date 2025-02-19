@@ -1,0 +1,38 @@
+version: 2.1
+
+executors:
+  standard:
+    docker:
+      - image: circleci/python:3.8
+    working_directory: "~/lib"
+
+commands:
+  setup-venv:
+    description: "Set up a virtual environment"
+    steps:
+      - run:
+          name: Activate virtual environment
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+      - run:
+          name: Install dependencies
+          command: |
+            pip install -r requirements.txt
+
+
+jobs:
+  run-python-tests:
+    executor: standard
+    steps:
+      - checkout
+      - setup-venv
+      - run:
+          name: Run tests
+          command: |
+            pytest tests
+
+workflows:
+  test:
+    jobs:
+      - run-python-tests
