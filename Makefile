@@ -1,8 +1,8 @@
 venv-activate:
 	python3 -m venv venv && source venv/bin/activate
 
-install-deps: venv-activate
-	. venv/bin/activate && pip install -r requirements.txt
+install-deps:
+	pip install -r requirements.txt
 
 dbt-deps: 
 	. venv/bin/activate && dbt deps

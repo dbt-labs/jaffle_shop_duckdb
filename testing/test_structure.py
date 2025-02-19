@@ -33,8 +33,8 @@ def get_path_filters():
     path_filters = {
         "staging": "Found an issue with the staging directory structure. Ensure all staging models are located in a staging subdirectory and there is a _models.yml file present.",
         "reports": "Found an issue with the reports directory structure. Ensure you have both a rpt_finance and rpt_sales model as well as a _models.yml file.",
-        "dimensions" : "Found an issue with dimensions folder. Ensure model is prefixed with dim_ and there is a _models.yml file present.",
-        "facts" : "Found an issue with facts folder. Ensure model is prefixed with fct_ and there is a _models.yml file present."
+        "dimensions": "Found an issue with dimensions folder. Ensure model is prefixed with dim_ and there is a _models.yml file present.",
+        "facts": "Found an issue with facts folder. Ensure model is prefixed with fct_ and there is a _models.yml file present."
     }
     for filter, error_message in path_filters.items():
             yield filter, error_message
