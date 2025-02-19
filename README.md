@@ -71,8 +71,8 @@ dbt docs serve
 ### dbt Certification Exercise
 To give you a feel for dbt development there are a couple of things in this repository which do not match conventions laid out in the Learnster dbt course so far which need to be fixed, and there is also a simple model which needs to be created from scratch. 
 
-1) All `.yml` files should be renamed to specify what they apply to. For example each model directory should contain a `_models.yml` file (the `_` is to ensure the file is top of the directory for easy access) and may or may not contain a `_docs.yml` file for documentation.
-2) stg_customers contains PII data in the `first_name` and `last_name` columns so these need to be hashed. Firstly, append `_pii` suffix to model file and mark the model and each of the sensitive columns as sensitive in the `staging/_models.yml` using the syntax:
+1) All `.yml` files should be renamed to specify what they apply to. For example each model directory should contain a `_models.yml` file (the `_` is to ensure the file is top of the directory for easy access) and may or may not contain a `_docs.yml` file for documentation. Do not worry about _sources.yml file in staging as we are using local csv seeds for this toy project rather than external sources.
+2) stg_customers contains PII data in the `first_name` and `last_name` columns so these need to be hashed. Mark the model and each of the sensitive columns as sensitive in the `staging/_models.yml` using the syntax:
     ```
     models:
       - name: stg_customers_pii
@@ -93,23 +93,13 @@ To give you a feel for dbt development there are a couple of things in this repo
             meta:
               sensitive: true
     ```
-   
-   Now, create a second view in the staging layer using macro `{{ hash_sensitive_columns }}` that selects from the _pii model. This should follow typical staging layer naming convention. Every sensitive column that was hashed in this layer should have dbt_expectations.expect_column_to_exist test added.
 
-   You can refer to [Personal Data](https://www.notion.so/kraken-tech/Personal-Data-13b73c742c7180b098eeffb0c655ddf7) doc for further information on handling PII.
+   You can refer to [Personal Data](https://www.notion.so/kraken-tech/Personal-Data-13b73c742c7180b098eeffb0c655ddf7) to learn about additional steps we have at Kraken to handle PII.
 3) The `customers.sql` and `orders.sql` models are classic semantic layer models and should be in `dimensions` and `facts` directories respectively with their `_docs.md` and `_models.yml` files.
-4) We use a package to test the structure of the dbt project called [dbt_project_evaluator](https://github.com/dbt-labs/dbt-project-evaluator) - this tests for lineage issues. One of its major checks is to see if staging models refer to other staging models which is normally not allowed. 
- 
-   However, we need to do this when hashing sensitive models so we need to make an exception. To do this, create a new seed called `dbt_project_evaluator_exceptions.csv` with the following content:
-   ```
-   fct_name,column_name,id_to_exclude,comment
-   fct_staging_dependent_on_staging,parent,stg_customers_pii,Scrubbing pii permitted in staging layer.
-   ```
-   This will disable the `fct_staging_dependent_on_staging` test for the `stg_customers_pii` where it is the parent of another staging model and give a reason for why its been omitted: `Scrubbing pii permitted in staging layer.`
-5) Create two final reporting models, these should be stored in a `reports` folder along with a `_models.yml` file: 
+4) Create two final reporting models, these should be stored in a `reports` folder along with a `_models.yml` file: 
 - a finance model which calculates the total value of orders returned by customer
 - a sales models which provides the customer count by month for customers making their first order
-6) Last but not least – if you haven't already – make sure to play around with running some dbt commands! We recommend at least trying:
+5) Last but not least – if you haven't already – make sure to play around with running some dbt commands! We recommend at least trying:
 - `dbt compile -s customers`
 - `dbt build`
 - `dbt docs generate`
