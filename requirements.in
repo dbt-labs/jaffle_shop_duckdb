@@ -1,8 +1,8 @@
 # Database adapter
-dbt-duckdb>=1.9.1
+dbt-duckdb>=1.9.0,<2.0.0
 
-# dbt Core 1.
-dbt-core>=1.8.1
+# dbt Core 1.9
+dbt-core>=1.9.0,<1.10.0
 
 # extra features
 sqlfluff>=2.3.5,<3
