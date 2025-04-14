@@ -28,7 +28,7 @@ jobs:
             dbt debug
             dbt build
             dbt docs generate
-            duckdb jaffle_shop.duckdb -c "select * from customers where customer_id = 42"
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
           shell: bash
 
   build-linux:
@@ -52,7 +52,7 @@ jobs:
             dbt debug
             dbt build
             dbt docs generate
-            duckdb jaffle_shop.duckdb -c "select * from customers where customer_id = 42"
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
           shell: bash
 
   build-linux-powershell-core:
@@ -76,7 +76,7 @@ jobs:
             dbt debug
             dbt build
             dbt docs generate
-            duckdb jaffle_shop.duckdb -c "select * from customers where customer_id = 42"
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
           shell: pwsh
 
   build-windows-powershell:
@@ -100,7 +100,7 @@ jobs:
             dbt debug
             dbt build
             dbt docs generate
-            duckdb jaffle_shop.duckdb -c "select * from customers where customer_id = 42"
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
           shell: powershell
 
   build-windows-cmd:
@@ -124,5 +124,5 @@ jobs:
             dbt debug
             dbt build
             dbt docs generate
-            duckdb jaffle_shop.duckdb -c "select * from customers where customer_id = 42"
+            duckcli jaffle_shop.duckdb -e "select * from customers where customer_id = 42"
           shell: cmd
