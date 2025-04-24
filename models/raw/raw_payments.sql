@@ -1,0 +1,1 @@
+select * from read_csv('data/raw_payments.csv', header=true)
