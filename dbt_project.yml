@@ -21,4 +21,4 @@ models:
     raw:
       materialized: table
     staging:
-      materialized: view
+      materialized: table
