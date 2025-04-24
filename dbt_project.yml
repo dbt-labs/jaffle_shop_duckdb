@@ -6,10 +6,6 @@ version: '0.1'
 profile: 'jaffle_shop'
 
 model-paths: ["models"]
-seed-paths: ["./seeds"]
-test-paths: ["tests"]
-analysis-paths: ["analysis"]
-macro-paths: ["macros"]
 
 target-path: "target"
 clean-targets:
@@ -19,16 +15,10 @@ clean-targets:
 
 require-dbt-version: [">=1.0.0", "<2.0.0"]
 
-seeds: 
-  +docs:
-    node_color: '#cd7f32'
-
 models:
   jaffle_shop:
     materialized: table
+    raw:
+      materialized: table
     staging:
       materialized: view
-      +docs:
-        node_color: 'silver'
-    +docs:
-      node_color: 'gold'
