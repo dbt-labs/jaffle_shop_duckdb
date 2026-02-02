@@ -26,11 +26,19 @@ models:
       - name: number_of_orders
         description: Count of the number of orders a customer has placed
 
-      - name: total_order_amount
-        description: Total value (AUD) of a customer's orders
+      - name: customer_lifetime_value
+        description: Total value (AUD) of all customer orders including returns
+
+      - name: clv_net_returns
+        description: Total value (AUD) of customer orders excluding returned and return_pending orders. Use this for accurate customer valuation.
+        tests:
+          - not_null
+
+      - name: days_since_last_order
+        description: Number of days since the customer's most recent order. Used for recency analysis.
 
   - name: customer_segments
-    description: This table categorizes customers based on their ordering behavior and value to the company, using derived metrics from their order history.
+    description: This table categorizes customers based on their ordering behavior, value, and recency. Uses net CLV (excluding returns) and dynamic percentile-based thresholds.
 
     columns:
       - name: customer_id
@@ -38,21 +46,39 @@ models:
         tests:
           - unique
           - not_null
-    
+
       - name: number_of_orders
         description: Count of the number of orders a customer has placed.
-    
+
       - name: customer_lifetime_value
-        description: Total value (in currency) of all orders placed by a customer over their lifetime.
-    
+        description: Total value (AUD) of all orders including returns. Kept for backward compatibility.
+
+      - name: clv_net_returns
+        description: Total value (AUD) excluding returned and return_pending orders. Primary metric for segmentation.
+
+      - name: days_since_last_order
+        description: Number of days since the customer's most recent order.
+
       - name: order_frequency_segment
-        description: Categorization of customers based on how frequently they place orders.
-    
+        description: Categorization based on order frequency (Frequent Buyer, Occasional Buyer, Rare Buyer).
+
       - name: value_segment
-        description: Categorization of customers based on the monetary value they bring to the company.
+        description: Categorization based on net CLV using dynamic percentile thresholds (top 25% = High Value, 25-50% = Medium Value).
         tests:
           - accepted_values:
-              values:  ['High Value', 'Medium Value', 'Low Value']
+              values: ['High Value', 'Medium Value', 'Low Value']
+
+      - name: recency_segment
+        description: Categorization based on days since last order (Active ≤30d, Recent ≤90d, Lapsing ≤180d, Dormant >180d).
+        tests:
+          - accepted_values:
+              values: ['Active', 'Recent', 'Lapsing', 'Dormant', 'Never Ordered']
+
+      - name: marketing_segment
+        description: Combined value and recency segment for targeted marketing (e.g., VIP Active, VIP At-Risk, Growth Lost).
+        tests:
+          - accepted_values:
+              values: ['VIP Active', 'VIP At-Risk', 'VIP Lost', 'Growth Active', 'Growth At-Risk', 'Growth Lost', 'Nurture Active', 'Nurture At-Risk', 'Nurture Lost', 'New/Unknown']
 
   - name: customer_order_pattern
     description: This table provides detailed insights into the ordering patterns of customers, including the frequency and recency of their orders.
