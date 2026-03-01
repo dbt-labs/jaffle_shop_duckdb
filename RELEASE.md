@@ -6,7 +6,7 @@
     ```
 1. Run `pip-compile` to pin all the dependencies and update `requirements.txt`:
     ```shell
-    pip-compile
+    pip-compile --no-strip-extras requirements.in
     ```
 1. Commit the result.
 1. Open a PR.
