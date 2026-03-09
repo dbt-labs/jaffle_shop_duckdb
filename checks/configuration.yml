@@ -1,0 +1,16 @@
+# Soda configuration file for DuckDB connection
+# This file configures the data source connection for running Soda checks
+
+data_source jaffle_shop:
+  type: duckdb
+  # Update the path to your DuckDB database file
+  # After running dbt, the database is typically at: target/jaffle_shop.duckdb
+  path: ../target/jaffle_shop.duckdb
+
+  # Optional: specify schema if needed
+  # schema: main
+
+# Example usage:
+# 1. Install Soda Core for DuckDB: pip install soda-core-duckdb
+# 2. Run dbt to build models: dbt run
+# 3. Run Soda checks: soda scan -d jaffle_shop -c checks/configuration.yml checks/stg_customers.yml

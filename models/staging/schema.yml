@@ -2,10 +2,27 @@ version: 2
 
 models:
   - name: stg_customers
+    description: Staging layer for customer data with standardized column names
     columns:
       - name: customer_id
+        description: Unique identifier for each customer
         tests:
           - unique
+          - not_null
+
+      - name: first_name
+        description: Customer's first name
+        tests:
+          - not_null
+
+      - name: last_name
+        description: Customer's last name
+        tests:
+          - not_null
+
+      - name: full_name
+        description: Customer's full name (first name + last name)
+        tests:
           - not_null
 
   - name: stg_orders

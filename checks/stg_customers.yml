@@ -1,0 +1,55 @@
+# Soda checks for stg_customers model
+# This file defines data quality checks using Soda CL (Checks Language)
+# Run with: soda scan -d your_datasource -c configuration.yml checks/stg_customers.yml
+
+checks for stg_customers:
+  # Row count check - ensure table is not empty
+  - row_count > 0
+
+  # customer_id checks (unique, not_null)
+  - missing_count(customer_id) = 0:
+      name: customer_id should not have null values
+  - duplicate_count(customer_id) = 0:
+      name: customer_id should be unique
+  - invalid_count(customer_id) = 0:
+      valid format: uuid
+      name: customer_id should be valid (optional - remove if not using UUID format)
+
+  # first_name checks (not_null)
+  - missing_count(first_name) = 0:
+      name: first_name should not have null values
+  - invalid_count(first_name) = 0:
+      valid min length: 1
+      name: first_name should not be empty string
+
+  # last_name checks (not_null)
+  - missing_count(last_name) = 0:
+      name: last_name should not have null values
+  - invalid_count(last_name) = 0:
+      valid min length: 1
+      name: last_name should not be empty string
+
+  # full_name checks (not_null)
+  - missing_count(full_name) = 0:
+      name: full_name should not have null values
+  - invalid_count(full_name) = 0:
+      valid min length: 3
+      name: full_name should contain at least first and last name with space
+
+  # Additional data quality checks
+  - schema:
+      name: Confirm expected schema
+      fail:
+        when required column missing:
+          - customer_id
+          - first_name
+          - last_name
+          - full_name
+
+  # Custom SQL check - verify full_name is correctly formatted
+  - failed rows:
+      name: full_name should match first_name + space + last_name
+      fail query: |
+        SELECT *
+        FROM stg_customers
+        WHERE full_name != first_name || ' ' || last_name
