@@ -20,6 +20,22 @@ models:
               arguments:
                 values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
 
+  - name: stg_brewery_inventory
+    columns:
+      - name: inventory_id
+        tests:
+          - unique
+          - not_null
+      - name: beer_type
+        tests:
+          - not_null
+      - name: quantity
+        tests:
+          - not_null
+      - name: price
+        tests:
+          - not_null
+
   - name: stg_payments
     columns:
       - name: payment_id

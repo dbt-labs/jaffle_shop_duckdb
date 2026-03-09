@@ -36,6 +36,7 @@ final as (
         orders.customer_id,
         orders.order_date,
         orders.status,
+        orders.beer_type,
 
         {% for payment_method in payment_methods -%}
 
