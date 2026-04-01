@@ -58,11 +58,6 @@ models:
               arguments:
                 values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
 
-      - name: amount
-        description: Total amount (AUD) of the order
-        tests:
-          - not_null
-
       - name: credit_card_amount
         description: Amount of the order (AUD) paid for by credit card
         tests:
@@ -82,3 +77,29 @@ models:
         description: Amount of the order (AUD) paid for by gift card
         tests:
           - not_null
+      - name: total_amount
+        description: Total payment amount for this order across all payment methods
+        tests:
+          - not_null
+          
+  - name: daily_order_summary
+    description: Daily aggregated metrics for orders - incremental model that only processes new dates
+    config:
+      materialized: incremental
+      unique_key: order_date
+    columns:
+      - name: order_date
+        description: Date of the orders being summarized
+        tests:
+          - unique
+          - not_null
+      - name: total_orders
+        description: Count of orders placed on this date
+      - name: unique_customers
+        description: Count of distinct customers who placed orders on this date
+      - name: total_revenue
+        description: Sum of all order amounts for this date
+      - name: returned_orders
+        description: Count of orders with 'returned' status on this date
+      - name: avg_order_value
+        description: Average order amount for this date
