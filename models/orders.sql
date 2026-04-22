@@ -1,19 +1,14 @@
-{% set payment_methods = ['credit_card', 'coupon', 'bank_transfer', 'gift_card'] %}
+{% set payment_methods = ['credit_card', 'coupon', 'bank_transfer', 'gift_card', 'apple_pay'] %}
 
 with orders as (
-
     select * from {{ ref('stg_orders') }}
-
 ),
 
 payments as (
-
     select * from {{ ref('stg_payments') }}
-
 ),
 
 order_payments as (
-
     select
         order_id,
 
@@ -21,16 +16,14 @@ order_payments as (
         sum(case when payment_method = '{{ payment_method }}' then amount else 0 end) as {{ payment_method }}_amount,
         {% endfor -%}
 
-        sum(amount) as total_amount
-
+        sum(amount) as total_amount,
+        count(distinct payment_method) as payment_method_count,
+        max(amount) as largest_payment_amount
     from payments
-
     group by order_id
-
 ),
 
 final as (
-
     select
         orders.order_id,
         orders.customer_id,
@@ -38,19 +31,21 @@ final as (
         orders.status,
 
         {% for payment_method in payment_methods -%}
-
         order_payments.{{ payment_method }}_amount,
-
         {% endfor -%}
 
-        order_payments.total_amount as amount
+        order_payments.total_amount as amount,
+        order_payments.payment_method_count,
+        order_payments.largest_payment_amount,
 
+        case
+            when order_payments.total_amount > 25 then 'high_value'
+            when order_payments.total_amount > 10 then 'medium_value'
+            else 'low_value'
+        end as order_value_tier
     from orders
-
-
     left join order_payments
         on orders.order_id = order_payments.order_id
-
 )
 
 select * from final
