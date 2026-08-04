@@ -24,7 +24,7 @@ jobs:
 
       - name: Run break predictor
         env:
-          DATAHUB_GMS_URL: "http://<YOUR-AWS-PUBLIC-IP>:8080"
+          DATAHUB_GMS_URL: "http://32.198.1.105:8080"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
