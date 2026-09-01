@@ -1,0 +1,16 @@
+version: 2
+
+models:
+
+  - name: stg_payments
+    description: 'contains payment methods and amounts of the orders'
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null
+      - name: payment_method
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
