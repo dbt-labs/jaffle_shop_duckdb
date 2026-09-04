@@ -29,6 +29,17 @@ models:
     staging:
       +materialized: view
       +docs:
+        node_color: 'peru'
+
+    marts:
+      +materialized: table
+      +docs:
+        node_color: 'gold'
+    
+    intermediate:
+      +materialized: view
+      +docs:
         node_color: 'silver'
+
     +docs:
-      node_color: 'gold'
+      node_color: 'gray'
