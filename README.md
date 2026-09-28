@@ -165,7 +165,7 @@ dbt docs serve
 
 #### Steps
 
-1. Ensure you have [Codespaces](https://github.com/features/codespaces) enabled for your GitHub organization or turned on as a beta feature if you're an individual user
+1. Ensure you have [Codespaces](https://github.com/features/codespaces) enabled for your GitHub organization.
 2. Click the green **Code** button on near the top right of the page of this repo's homepage (you may already be on it)
 3. Instead of cloning the repo like you normally would, instead select the **Codespaces** tab of the pop out, then "Create codespace on `duckdb`"
    ![dbt_full_deploy_commands](images/open_in_codespaces.png)
