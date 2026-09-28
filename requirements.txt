@@ -5,27 +5,26 @@ agate==1.9.1
     #   dbt-adapters
     #   dbt-common
     #   dbt-core
-annotated-types==0.7.0
+annotated-types==0.8.0
     # via pydantic
-attrs==25.4.0
+attrs==26.1.0
     # via
     #   jsonschema
     #   referencing
 babel==2.18.0
     # via agate
-certifi==2026.2.25
+certifi==2026.7.22
     # via requests
 chardet==5.2.0
     # via
     #   jaffle-shop (pyproject.toml)
     #   diff-cover
     #   sqlfluff
-charset-normalizer==3.4.4
+charset-normalizer==3.5.1
     # via requests
-click==8.3.1
+click==8.4.2
     # via
     #   dbt-core
-    #   dbt-semantic-interfaces
     #   sqlfluff
 colorama==0.4.6
     # via
@@ -33,42 +32,40 @@ colorama==0.4.6
     #   sqlfluff
 daff==1.4.2
     # via dbt-core
-dbt-adapters==1.22.6
+dbt-adapters==1.24.5
     # via
     #   dbt-core
     #   dbt-duckdb
-dbt-common==1.37.2
+dbt-common==1.39.0
     # via
     #   dbt-adapters
     #   dbt-core
     #   dbt-duckdb
-dbt-core==1.11.6
+dbt-core==1.12.5
     # via
     #   jaffle-shop (pyproject.toml)
     #   dbt-duckdb
-dbt-duckdb==1.10.1
+dbt-core-experimental-parser==2.0.5
+    # via dbt-core
+dbt-duckdb==1.11.0
     # via jaffle-shop (pyproject.toml)
 dbt-extractor==0.6.0
     # via dbt-core
-dbt-protos==1.0.431
+dbt-protos==1.0.565
     # via
     #   dbt-adapters
     #   dbt-common
     #   dbt-core
-dbt-semantic-interfaces==0.9.0
-    # via dbt-core
-deepdiff==8.6.1
+deepdiff==8.6.2
     # via dbt-common
-diff-cover==10.2.0
+diff-cover==10.6.0
     # via sqlfluff
-duckdb==1.4.4
+duckdb==1.5.5
     # via dbt-duckdb
-idna==3.11
+idna==3.20
     # via requests
-importlib-metadata==8.7.1
-    # via dbt-semantic-interfaces
-iniconfig==2.3.0
-    # via pytest
+importlib-metadata==9.0.1
+    # via metricflow
 isodate==0.7.2
     # via
     #   agate
@@ -77,97 +74,100 @@ jinja2==3.1.6
     # via
     #   dbt-common
     #   dbt-core
-    #   dbt-semantic-interfaces
     #   diff-cover
+    #   metricflow
     #   sqlfluff
 jsonschema==4.26.0
     # via
     #   dbt-common
     #   dbt-core
-    #   dbt-semantic-interfaces
+    #   metricflow
 jsonschema-specifications==2025.9.1
     # via jsonschema
 leather==0.4.1
     # via agate
 markupsafe==3.0.3
     # via jinja2
-mashumaro==3.14
+mashumaro==3.17
     # via
     #   dbt-adapters
     #   dbt-common
     #   dbt-core
-more-itertools==10.8.0
-    # via dbt-semantic-interfaces
-msgpack==1.1.2
-    # via mashumaro
-networkx==3.6.1
+metricflow==0.213.0
     # via dbt-core
+more-itertools==10.8.0
+    # via metricflow
+msgpack==1.2.2
+    # via mashumaro
+networkx==3.7
+    # via dbt-core
+opentelemetry-api==1.45.0
+    # via
+    #   dbt-common
+    #   dbt-core
 orderly-set==5.5.0
     # via deepdiff
-packaging==26.0
-    # via
-    #   dbt-core
-    #   pytest
+packaging==26.3
+    # via dbt-core
 parsedatetime==2.6
     # via agate
-pathspec==0.12.1
+pathspec==1.0.4
     # via
     #   dbt-common
     #   dbt-core
     #   sqlfluff
-platformdirs==4.9.2
+platformdirs==4.11.15
     # via sqlfluff
 pluggy==1.6.0
-    # via
-    #   diff-cover
-    #   pytest
-protobuf==6.33.5
+    # via diff-cover
+protobuf==6.33.6
     # via
     #   dbt-adapters
     #   dbt-common
     #   dbt-core
     #   dbt-protos
-pydantic==2.12.5
+pydantic==2.13.5
     # via
     #   dbt-core
-    #   dbt-semantic-interfaces
-pydantic-core==2.41.5
+    #   metricflow
+pydantic-core==2.46.5
     # via pydantic
-pygments==2.19.2
-    # via
-    #   diff-cover
-    #   pytest
-pytest==9.0.2
-    # via sqlfluff
+pygments==2.21.0
+    # via diff-cover
 python-dateutil==2.9.0.post0
     # via
     #   dbt-common
-    #   dbt-semantic-interfaces
-python-slugify==8.0.4
+    #   metricflow
+python-dotenv==1.2.3
+    # via dbt-core
+python-slugify==9.1.1
     # via agate
 pytimeparse==1.1.8
     # via agate
-pytz==2025.2
+pytz==2026.4
     # via
     #   dbt-adapters
     #   dbt-core
 pyyaml==6.0.3
     # via
     #   dbt-core
-    #   dbt-semantic-interfaces
+    #   metricflow
     #   sqlfluff
+rapidfuzz==3.14.6
+    # via metricflow
 referencing==0.37.0
     # via
     #   jsonschema
     #   jsonschema-specifications
-regex==2026.2.28
+    #   metricflow
+regex==2026.9.10
     # via sqlfluff
-requests==2.32.5
+requests==2.34.2
     # via
     #   dbt-common
     #   dbt-core
     #   snowplow-tracker
-rpds-py==0.30.0
+rpds-py==2026.6.3
     # via
     #   jsonschema
     #   referencing
@@ -175,30 +175,36 @@ six==1.17.0
     # via python-dateutil
 snowplow-tracker==1.1.0
     # via dbt-core
-sqlfluff==4.0.4
+sqlfluff==4.3.0
     # via jaffle-shop (pyproject.toml)
-sqlparse==0.5.4
+sqlglot==30.19.0
+    # via metricflow
+sqlparse==0.6.0
     # via dbt-core
+tabulate==0.10.0
+    # via metricflow
 tblib==3.2.2
     # via sqlfluff
 text-unidecode==1.3
     # via python-slugify
-tqdm==4.67.3
+tqdm==4.70.1
     # via sqlfluff
-typing-extensions==4.15.0
+typing-extensions==4.16.0
     # via
     #   dbt-adapters
     #   dbt-common
     #   dbt-core
-    #   dbt-semantic-interfaces
     #   mashumaro
+    #   metricflow
+    #   opentelemetry-api
     #   pydantic
     #   pydantic-core
+    #   referencing
     #   snowplow-tracker
     #   typing-inspection
-typing-inspection==0.4.2
+typing-inspection==0.4.4
     # via pydantic
-urllib3==2.6.3
+urllib3==2.8.0
     # via requests
-zipp==3.23.0
+zipp==4.1.0
     # via importlib-metadata
