@@ -1,4 +1,4 @@
-id,user_id,order_date,status
+id,customer_user_id,order_date,status
 1,1,2018-01-01,returned
 2,3,2018-01-02,completed
 3,94,2018-01-04,completed
