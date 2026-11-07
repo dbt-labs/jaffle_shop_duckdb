@@ -82,3 +82,58 @@ models:
         description: Amount of the order (AUD) paid for by gift card
         tests:
           - not_null
+
+  - name: customer_order_payment_analysis
+    description: >
+      A complex analytical model that joins customers, orders, and payments.
+      Demonstrates window functions (running totals, rank, lag), conditional
+      aggregation with payment-method pivoting, cohort month derivation,
+      customer tenure, and average order value comparisons.
+    columns:
+      - name: customer_id
+        description: This is a unique identifier for a customer
+        tests:
+          - unique
+          - not_null
+
+      - name: first_name
+        description: Customer's first name. PII.
+
+      - name: last_name
+        description: Customer's last name. PII.
+
+      - name: first_order_date
+        description: Date (UTC) of a customer's first order
+
+      - name: most_recent_order_date
+        description: Date (UTC) of a customer's most recent order
+
+      - name: number_of_orders
+        description: Count of the number of orders a customer has placed
+
+      - name: customer_tenure_days
+        description: Number of days between a customer's first and most recent order
+
+      - name: average_order_value
+        description: Average order value (AUD) across the customer's orders
+
+      - name: customer_lifetime_value
+        description: Total value (AUD) of all of a customer's orders
+
+      - name: cohort_month
+        description: The month (YYYY-MM) in which the customer placed their first order
+
+      - name: credit_card_total
+        description: Total amount (AUD) the customer paid with a credit card
+
+      - name: coupon_total
+        description: Total amount (AUD) the customer paid with a coupon
+
+      - name: bank_transfer_total
+        description: Total amount (AUD) the customer paid via bank transfer
+
+      - name: gift_card_total
+        description: Total amount (AUD) the customer paid with a gift card
+
+      - name: total_paid
+        description: Total amount (AUD) the customer has paid across all orders
