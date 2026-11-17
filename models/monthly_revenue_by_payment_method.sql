@@ -21,7 +21,7 @@ final as (
 
     from payments
 
-    inner join orders
+    left join orders
         on payments.order_id = orders.order_id
 
     group by 1, 2

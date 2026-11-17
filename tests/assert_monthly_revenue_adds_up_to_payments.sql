@@ -21,4 +21,4 @@ select
     source_total.total_revenue as source_value
 from mart_total
 cross join source_total
-where round(mart_total.total_revenue, 2) != round(source_total.total_revenue, 2)
+where round(mart_total.total_revenue, 2) is distinct from round(source_total.total_revenue, 2)
