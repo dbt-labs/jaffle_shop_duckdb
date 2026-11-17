@@ -100,3 +100,31 @@ models:
         description: Amount of the order (AUD) paid for by gift card
         tests:
           - not_null
+
+  - name: monthly_revenue_by_payment_method
+    description: >
+      Revenue per month and payment method, one row per combination. Payments have no date,
+      so the month is the month of the order the payment belongs to. All orders count, whatever
+      their status, and negative amounts (refunds) are included.
+
+    columns:
+      - name: revenue_month
+        description: First day of the month (UTC) in which the order was placed
+        tests:
+          - not_null
+
+      - name: payment_method
+        description: How the payment was made
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
+
+      - name: revenue
+        description: Total payments (AUD) for the month and payment method, with 2 decimals
+        tests:
+          - not_null
+
+      - name: number_of_payments
+        description: Number of payments behind the revenue figure

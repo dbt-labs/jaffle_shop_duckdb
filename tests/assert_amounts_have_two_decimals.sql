@@ -99,6 +99,16 @@ with amounts as (
         2 as decimals_allowed
     from {{ ref('orders') }}
 
+    union all
+
+    select
+        'marts' as layer,
+        'monthly_revenue_by_payment_method.revenue' as column_name,
+        row_number() over () as row_id,
+        revenue as amount,
+        2 as decimals_allowed
+    from {{ ref('monthly_revenue_by_payment_method') }}
+
 )
 
 select
