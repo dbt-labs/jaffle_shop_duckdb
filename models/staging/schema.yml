@@ -14,6 +14,13 @@ models:
         tests:
           - unique
           - not_null
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
       - name: status
         tests:
           - accepted_values:
@@ -26,8 +33,19 @@ models:
         tests:
           - unique
           - not_null
+      - name: order_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_orders')
+                field: order_id
+      - name: amount
+        tests:
+          - not_null
       - name: payment_method
         tests:
+          - not_null
           - accepted_values:
               arguments:
                 values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
