@@ -174,6 +174,95 @@ mismatches as (
 select * from mismatches
 
 
+ITEM 8: Tautological uniqueness test on the monthly revenue mart
+-----------------------------------------------------------------
+WHAT'S WRONG
+  tests/assert_monthly_revenue_one_row_per_month_and_method.sql checks
+  that (revenue_month, payment_method) is unique. The model itself does
+  `group by 1, 2` on exactly those two columns, so duplicates are
+  impossible by construction and the test can never fail.
+
+PROPOSED CHANGE
+  Delete the test, or replace it with a grain check that can fail, for
+  example: number of distinct (month, method) pairs in the mart equals
+  the number of distinct pairs derived directly from stg_payments joined
+  to stg_orders. Note that the reconciliation test
+  (assert_monthly_revenue_adds_up_to_payments.sql) already covers lost
+  or double counted money.
+
+WHY
+  A test that cannot fail gives false confidence and costs run time.
+  The group by also hides duplicates from a broken join, so this test
+  would not notice them even in a changed model.
+
+CAVEAT
+  Not run yet. If replaced, run it with `dbt test` and lint it.
+
+
+ITEM 9: Gaps in the monthly revenue docs and tests (models/schema.yml)
+----------------------------------------------------------------------
+WHAT'S WRONG
+  - `revenue_month` is described as "(UTC)", but it is derived from
+    stg_orders.order_date, a plain date with no time zone. The remark
+    is unfounded. (The same wording exists on other order dates in the
+    file, so decide whether to fix all of them or only this one.)
+  - `number_of_payments` has no tests (not_null, or a check that it is
+    positive), and is not reconciled with the number of rows in
+    stg_payments.
+  - The `accepted_values` list for `payment_method` is now copied by
+    hand in a third place (staging, orders, this mart), so the three
+    can drift apart.
+
+PROPOSED CHANGE
+  - Drop "(UTC)" from the `revenue_month` description.
+  - Add `not_null` to `number_of_payments`, and a count reconciliation
+    next to the existing revenue one.
+  - Optional: keep a single source of the allowed methods, for example
+    a dbt var used by all three tests. CLAUDE.md already lists the
+    places to update when a method is added.
+
+WHY
+  Misleading docs, an untested column and a triple-maintained list are
+  small things that go wrong silently later.
+
+EXAMPLE (models/schema.yml, monthly_revenue_by_payment_method model)
+
+  Before:
+      - name: number_of_payments
+        description: Number of payments behind the revenue figure
+
+  After:
+      - name: number_of_payments
+        description: Number of payments behind the revenue figure
+        tests:
+          - not_null
+
+
+ITEM 10: Vacuous check in the two decimals test
+-----------------------------------------------
+WHAT'S WRONG
+  tests/assert_amounts_have_two_decimals.sql checks
+  monthly_revenue_by_payment_method.revenue, but that column is cast to
+  decimal(18, 2) in the model, so it can never have more than 2
+  decimals. The check cannot fail. Also, `row_number() over ()` has no
+  ordering, so the row_id shown in a failure may not point at a stable
+  row.
+
+PROPOSED CHANGE
+  Keep the check (CLAUDE.md says every amount column is covered, and it
+  guards against a future change of the cast), but note in a comment
+  that it is a guard. For stable row ids, order the window, for example
+  `row_number() over (order by revenue_month, payment_method)`.
+
+WHY
+  Honest tests are easier to trust. A stable row_id makes a failure
+  traceable.
+
+CAVEAT
+  The other layers in the same file use the same unordered pattern, so
+  fix them together or not at all, to stay consistent.
+
+
 OTHER NOTES / OPEN QUESTIONS
 ----------------------------
 (space for your own notes)
