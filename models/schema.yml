@@ -128,3 +128,36 @@ models:
 
       - name: number_of_payments
         description: Number of payments behind the revenue figure
+
+  - name: monthly_customers
+    description: >
+      Customers per month, one row per month in which at least one order was placed. A customer is
+      active in a month if they placed at least one order then. The month is the month of
+      the order date. All orders count, whatever their status. Months without orders have no row.
+
+    columns:
+      - name: order_month
+        description: First day of the month in which the orders were placed
+        tests:
+          - unique
+          - not_null
+
+      - name: number_of_active_customers
+        description: Number of distinct customers who placed at least one order in the month
+        tests:
+          - not_null
+
+      - name: number_of_new_customers
+        description: Number of active customers whose first ever order was in this month
+        tests:
+          - not_null
+
+      - name: number_of_returning_customers
+        description: Number of active customers who also ordered in an earlier month
+        tests:
+          - not_null
+
+      - name: number_of_orders
+        description: Number of orders placed in the month
+        tests:
+          - not_null
