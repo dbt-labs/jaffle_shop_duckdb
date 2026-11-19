@@ -263,6 +263,101 @@ CAVEAT
   fix them together or not at all, to stay consistent.
 
 
+ITEM 11: Reconciliation test only compares the grand total
+----------------------------------------------------------
+WHAT'S WRONG
+  tests/assert_monthly_revenue_adds_up_to_payments.sql compares the
+  total revenue of the mart with the total of stg_payments. Errors that
+  cancel out in the total go unnoticed. The month and the method are
+  the only things the join with stg_orders can get wrong, and the test
+  does not look at them.
+
+PROPOSED CHANGE
+  Compare per (revenue_month, payment_method). Build the expected set
+  in the test from stg_payments joined to stg_orders, full outer join it
+  with the mart on both keys, and return the rows where revenue (and
+  number_of_payments) is distinct from the expected value. Keep
+  `is distinct from` and round(..., 2) so NULLs and floating point noise
+  do not hide a failure.
+
+WHY
+  A 10.00 payment moved to the wrong month, or a 10.00 credit_card
+  payment counted as coupon, leaves the grand total unchanged, so the
+  current test passes. A per-group check fails on it. This also covers
+  the unreconciled number_of_payments from item 9.
+
+CAVEAT
+  Not run yet. Run it with `dbt test` and lint it. Item 8 (tautological
+  uniqueness test) can then be deleted, because the full outer join also
+  shows missing or duplicated groups.
+
+
+ITEM 12: NULL revenue_month for orphan payments is undocumented
+---------------------------------------------------------------
+WHAT'S WRONG
+  The mart uses a left join from payments to orders. A payment whose
+  order_id is not in stg_orders ends up in a group with a NULL
+  revenue_month. The model and column descriptions in models/schema.yml
+  do not say so. The not_null test on revenue_month is the alarm for
+  this case, but it fails without explaining why.
+
+PROPOSED CHANGE
+  Add a sentence to the model description in models/schema.yml: payments
+  without a matching order get a NULL revenue_month, and the not_null
+  test on revenue_month is there on purpose to catch that. Optionally
+  add the relationships test from item 6 (stg_payments.order_id must
+  exist in stg_orders.order_id), which points at the cause directly.
+
+WHY
+  Whoever sees the not_null failure first should be able to find the
+  cause from the docs. Revenue itself is not lost, because the
+  reconciliation test still passes.
+
+EXAMPLE (models/schema.yml, monthly_revenue_by_payment_method model)
+
+  Added to the model description:
+      Payments without a matching order get a NULL revenue_month. The
+      not_null test on that column is the deliberate alarm for this case.
+
+
+ITEM 13: No uniqueness test on the grain of the revenue mart
+------------------------------------------------------------
+WHAT'S WRONG
+  The grain is (revenue_month, payment_method), a composite key. A
+  single-column `unique` test does not fit, and the singular test that
+  tries to cover it can never fail (item 8). So nothing in
+  models/schema.yml guards the grain.
+
+PROPOSED CHANGE
+  Either rely on item 11 (a per-group reconciliation also exposes missing
+  or duplicated groups), or add a combination test such as
+  dbt_utils.unique_combination_of_columns. The second one needs the
+  dbt_utils package, which this project does not use yet, so item 11 is
+  the simpler route.
+
+WHY
+  Checklist convention: keys carry unique and not_null. A grain with no
+  working test is a gap, even if the group by makes duplicates unlikely.
+
+
+ITEM 14: Reconciliation test passes on an empty mart
+----------------------------------------------------
+WHAT'S WRONG
+  If stg_payments and the mart are both empty, both totals are NULL.
+  `is distinct from` treats NULL and NULL as equal, so
+  tests/assert_monthly_revenue_adds_up_to_payments.sql passes on an
+  empty result.
+
+PROPOSED CHANGE
+  Optional: also compare count(*) of stg_payments with the sum of
+  number_of_payments in the mart, or require the mart to have at least
+  one row. Minor, and item 11 would already cover the count.
+
+WHY
+  A pipeline that loads nothing should not look healthy. With the current
+  seeds this cannot happen, so it is low priority.
+
+
 OTHER NOTES / OPEN QUESTIONS
 ----------------------------
 (space for your own notes)
